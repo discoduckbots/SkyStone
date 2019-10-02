@@ -14,6 +14,14 @@ public class MecanumMotor {
     private DcMotor mBackRight;
     private Telemetry mTelemetry;
 
+    /**
+     * Creates a mecanum motor using the 4 individual motors passed in as the arguments
+     * @param telemetry : Telemetry to send messages to the Driver Control
+     * @param frontLeft : Front left motor
+     * @param frontRight : Front right motor
+     * @param backLeft : Back left motor
+     * @param backRight : Back right motor
+     */
     public MecanumMotor(Telemetry telemetry,
                         DcMotor frontLeft, DcMotor frontRight,
                         DcMotor backLeft, DcMotor backRight ) {
@@ -24,6 +32,12 @@ public class MecanumMotor {
         mBackRight = backRight;
     }
 
+    /**
+     * This function makes the mecanum motor drive using the joystick
+     * @param speedX - the x value of the joystick controlling straf
+     * @param speedY - the y value of the joystick controlling the forward/backwards motion
+     * @param rotation - the x value of the joystick controlling the rotation
+     */
     public void drive(double speedX, double speedY, double rotation) {
         double fl = speedX + speedY + rotation;
         double fr = -speedX + speedY - rotation;
@@ -49,6 +63,9 @@ public class MecanumMotor {
 
     }
 
+    /**
+     * This function stops the mechanum motor
+     */
     public void stop() {
         mFrontLeft.setPower(0);
         mFrontRight.setPower(0);
@@ -57,12 +74,45 @@ public class MecanumMotor {
 
     }
 
+    // TODO: Not sure whether encoders will work for mecanum wheels
+    // Added this to try it out
+
+    /**
+     * This function moves the mecanum motor forward or backward by specifying the distance to move
+     * @param distance - positive value in inches to move forward
+     *                 - negative value in inches to move backwards
+     */
     public void driveByDistance(int distance) {
-        int target = convertDistanceToTarget(distance);
-        mFrontLeft.setTargetPosition(target);
-        mFrontRight.setTargetPosition(target);
-        mBackLeft.setTargetPosition(target);
-        mBackRight.setTargetPosition(target);
+        int direction = 1;
+        // if the distance is negative, move all the wheels in opposite direction
+        if (distance < 1) direction = -1;
+
+        // convert the absolute distance to number of rotations
+        int target = convertDistanceToTarget(Math.abs(distance));
+
+        mFrontLeft.setTargetPosition(target * direction);
+        mFrontRight.setTargetPosition(target * direction);
+        mBackLeft.setTargetPosition(target * direction);
+        mBackRight.setTargetPosition(target * direction);
+    }
+
+    /**
+     * This function moves the mecanum motor sideways by specifying the distance to move
+     * @param distance - positive value in inches to straf to the right
+     *                 - negative value in inches to straf to the left
+     */
+    public void strafByDistance(int distance) {
+        int direction = 1;
+        // if the distance is negative, move all the wheels in opposite direction
+        if (distance < 1) direction = -1;
+
+        // convert the absolute distance to number of rotations
+        int target = convertDistanceToTarget(Math.abs(distance));
+
+        mFrontLeft.setTargetPosition(target * direction);
+        mFrontRight.setTargetPosition(target * direction * (-1));
+        mBackLeft.setTargetPosition(target * direction * (-1));
+        mBackRight.setTargetPosition(target * direction);
     }
 
     private int convertDistanceToTarget(int distance) {

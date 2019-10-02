@@ -74,7 +74,6 @@ public class TeleOp extends LinearOpMode {
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         mMecanumMotor = new MecanumMotor(telemetry, frontLeft, frontRight, backLeft, backRight);
 
-
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         // TODO : how are our motors connected ? Are any reversed ?
