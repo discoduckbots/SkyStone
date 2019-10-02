@@ -11,7 +11,7 @@ public class MecanumMotor {
     private DcMotor mFrontRight;
     private DcMotor mBackLeft;
     private DcMotor mBackRight;
-    Telemetry mTelemetry;
+    private Telemetry mTelemetry;
 
     public MecanumMotor(Telemetry telemetry,
                         DcMotor frontLeft, DcMotor frontRight,
@@ -52,8 +52,8 @@ public class MecanumMotor {
         double[] values = new double[4];
         values[0] = v1;
         values[1] = v2;
-        values[0] = v3;
-        values[0] = v4;
+        values[2] = v3;
+        values[3] = v4;
 
         double max = values[0];
         for (double value : values) {
