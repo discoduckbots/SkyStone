@@ -17,7 +17,7 @@ public class BuildingAutonomous extends LinearOpMode {
 
         // initialize
 
-        // wait for sart
+        // wait for start
         waitForStart();
         runtime.reset();
 
