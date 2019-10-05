@@ -69,5 +69,7 @@ public class SkystoneAutonomous extends LinearOpMode {
 
     private void moveTowardsTheBlock() {
 
+
+
     }
 }

@@ -163,6 +163,6 @@ public class MecanumMotor {
      */
     public boolean isMoving() {
         // TODO should this be all && or || ?
-        return mFrontLeft.isBusy() || mFrontRight.isBusy() || mBackRight.isBusy() || mBackLeft.isBusy();
+        return mFrontLeft.isBusy() && mFrontRight.isBusy() && mBackRight.isBusy() && mBackLeft.isBusy();
     }
 }
