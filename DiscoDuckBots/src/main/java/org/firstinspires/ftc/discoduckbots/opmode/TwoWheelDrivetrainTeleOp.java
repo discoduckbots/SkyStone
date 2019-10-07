@@ -29,13 +29,11 @@
 
 package org.firstinspires.ftc.discoduckbots.opmode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.discoduckbots.hardware.MecanumMotor;
+import org.firstinspires.ftc.discoduckbots.hardware.TwoWheelDrivetrain;
 
 
 /**
@@ -49,36 +47,24 @@ import org.firstinspires.ftc.discoduckbots.hardware.MecanumMotor;
  *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-@Disabled
-public class TeleOp extends LinearOpMode {
+ *
+ **/
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="2WD OpMode", group="Linear Opmode")
+public class TwoWheelDrivetrainTeleOp extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private MecanumMotor mMecanumMotor = null;
+    private TwoWheelDrivetrain twoWheelDrivetrain = null;
 
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "Starting ");
         telemetry.update();
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        DcMotor frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
-        DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
-        DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        mMecanumMotor = new MecanumMotor(telemetry, frontLeft, frontRight, backLeft, backRight);
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        // TODO : how are our motors connected ? Are any reversed ?
-        //leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        //rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        DcMotor left = hardwareMap.get(DcMotor.class, "Left");
+        DcMotor right = hardwareMap.get(DcMotor.class, "Right");
+        twoWheelDrivetrain = new TwoWheelDrivetrain(left, right);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -87,14 +73,14 @@ public class TeleOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            mMecanumMotor.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            twoWheelDrivetrain.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             // Show the elapsed game time.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Status:",gamepad2.left_stick_y);
             telemetry.update();
         }
 
-        telemetry.addData("TeleOp" , "Stopping");
-        mMecanumMotor.stop();
+        telemetry.addData("TwoWheelDrivetrainTeleOp", "Stopping");
+        twoWheelDrivetrain.stop();
     }
 }

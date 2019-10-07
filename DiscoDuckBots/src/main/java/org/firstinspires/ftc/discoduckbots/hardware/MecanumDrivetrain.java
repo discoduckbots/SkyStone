@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.discoduckbots.util.NumberUtility;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class MecanumMotor {
+public class MecanumDrivetrain implements DrivetrainInterface {
     // TODO: What is the diameter of the wheels in inches
     private static final double WHEEL_DIAMETER = 1;
     private DcMotor mFrontLeft;
@@ -23,9 +23,9 @@ public class MecanumMotor {
      * @param backLeft : Back left motor
      * @param backRight : Back right motor
      */
-    public MecanumMotor(Telemetry telemetry,
-                        DcMotor frontLeft, DcMotor frontRight,
-                        DcMotor backLeft, DcMotor backRight ) {
+    public MecanumDrivetrain(Telemetry telemetry,
+                             DcMotor frontLeft, DcMotor frontRight,
+                             DcMotor backLeft, DcMotor backRight ) {
         mTelemetry = telemetry;
         mFrontLeft = frontLeft;
         mFrontRight = frontRight;
