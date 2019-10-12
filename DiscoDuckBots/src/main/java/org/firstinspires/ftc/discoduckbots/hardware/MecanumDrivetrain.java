@@ -31,6 +31,13 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontRight = frontRight;
         mBackLeft = backLeft;
         mBackRight = backRight;
+
+        mBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        mBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        mFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        mFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
     }
 
     /**
@@ -61,6 +68,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mTelemetry.addData("Motors",
                 "frontL (%.2f), frontR (%.2f), backL (%.2f), backR (%.2f)",
                 fl, fr, bl, br);
+        mTelemetry.update();
 
     }
 
@@ -164,5 +172,41 @@ public class MecanumDrivetrain implements DrivetrainInterface {
     public boolean isMoving() {
         // TODO should this be all && or || ?
         return mFrontLeft.isBusy() && mFrontRight.isBusy() && mBackRight.isBusy() && mBackLeft.isBusy();
+    }
+
+    public void frontLeftForward(double power) {
+        mFrontLeft.setPower(power);
+        mFrontRight.setPower(0);
+        mBackLeft.setPower(0);
+        mBackRight.setPower(0);
+    }
+
+    public void  frontRightForward (double power)  {
+        mFrontRight.setPower(power);
+        mFrontLeft.setPower(0);
+        mBackRight.setPower(0);
+        mBackLeft.setPower(0);
+    }
+
+    public void backLeftForward(double power) {
+        mBackLeft.setPower(power);
+        mBackRight.setPower(0);
+        mFrontLeft.setPower(0);
+        mFrontRight.setPower(0);
+    }
+
+    public void  backRightForward (double power)  {
+        mBackRight.setPower(power);
+        mBackLeft.setPower(0);
+        mFrontLeft.setPower(0);
+        mFrontRight.setPower(0);
+    }
+
+    public  void strafeRightByRevolution (int revolutions) {
+
+    }
+
+    public  void strafeLeftByRevolution (int revolutions) {
+
     }
 }

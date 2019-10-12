@@ -84,7 +84,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            mMecanumDrivetrain.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            mMecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             // Show the elapsed game time.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
