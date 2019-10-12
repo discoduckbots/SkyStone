@@ -202,11 +202,11 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontRight.setPower(0);
     }
 
-    public  void strafeRightByRevolution (int revolutions) {
+    public  void strafeRightByRevolution (int revolutions, double power) {
 
     }
 
-    public  void strafeLeftByRevolution (int revolutions) {
+    public  void strafeLeftByRevolution (int revolutions, double power) {
 
     }
 }
