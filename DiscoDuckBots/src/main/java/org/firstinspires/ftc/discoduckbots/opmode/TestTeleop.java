@@ -68,6 +68,35 @@ public class TestTeleop extends LinearOpMode {
                 }
                 mMecanumDrivetrain.stop();
             }
+            if(gamepad2.a){
+                mMecanumDrivetrain.moveForwardByRevolution(1,.5);
+                while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
+                    idle();
+                }
+                mMecanumDrivetrain.stop();
+            }
+            if(gamepad2.b){
+                mMecanumDrivetrain.moveForwardByRevolution(5,.5);
+                while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
+                    idle();
+                }
+                mMecanumDrivetrain.stop();
+            }
+
+            if(gamepad2.x){
+                mMecanumDrivetrain.moveForwardByRevolution(1,1);
+                while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
+                    idle();
+                }
+                mMecanumDrivetrain.stop();
+            }
+            if(gamepad2.y){
+                mMecanumDrivetrain.moveForwardByRevolution(1,.1);
+                while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
+                    idle();
+                }
+                mMecanumDrivetrain.stop();
+            }
         }
 
         telemetry.addData("MecanumDrivetrainTeleOp" , "Stopping");
