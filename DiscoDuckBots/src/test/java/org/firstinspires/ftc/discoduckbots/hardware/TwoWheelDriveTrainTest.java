@@ -85,5 +85,4 @@ public class TwoWheelDriveTrainTest {
 
         assertEquals(1.0, result, DELTA);
     }
-
 }

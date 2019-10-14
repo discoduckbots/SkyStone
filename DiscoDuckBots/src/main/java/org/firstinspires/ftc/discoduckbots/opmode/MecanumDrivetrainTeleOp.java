@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
 
@@ -55,6 +56,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
+    private IntakeWheels mIntakeWheels = null;
 
 
     @Override
@@ -71,6 +73,10 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
 
+        DcMotor intakeLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
+        DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
+        mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         // TODO : how are our motors connected ? Are any reversed ?
@@ -86,12 +92,20 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
             mMecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
+            if (gamepad1.a) {
+                mIntakeWheels.spin();
+            }
+            else {
+                mIntakeWheels.stop();
+            }
+
             // Show the elapsed game time.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
+
         }
 
         telemetry.addData("MecanumDrivetrainTeleOp" , "Stopping");
         mMecanumDrivetrain.stop();
-    }
+}
 }
