@@ -47,6 +47,11 @@ public class MecanumDrivetrain implements DrivetrainInterface {
      * @param rotation - the x value of the joystick controlling the rotation
      */
     public void drive(double speedX, double speedY, double rotation) {
+        mTelemetry.addData("speedX", speedX);
+        mTelemetry.addData("speedY", speedY);
+        mTelemetry.addData("rotation", rotation);
+        mTelemetry.update();
+
         double fl = speedX + speedY + rotation;
         double fr = -speedX + speedY - rotation;
         double bl= -speedX + speedY + rotation;
@@ -206,7 +211,18 @@ public class MecanumDrivetrain implements DrivetrainInterface {
 
     }
 
-    public  void strafeLeftByRevolution (int revolutions, double power) {
+    public  void moveForwardByRevolution (int revolutions, double power) {
+        mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        mFrontRight.setTargetPosition(revolutions);
 
+        mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        mFrontLeft.setPower(power);
+        mBackRight.setPower(power);
+        mFrontRight.setPower(power);
+        mBackLeft.setPower(power);
     }
 }
