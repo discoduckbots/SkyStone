@@ -213,6 +213,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mFrontRight.setTargetPosition(revolutions);
         mFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         mFrontLeft.setPower(power);
@@ -223,8 +224,8 @@ public class MecanumDrivetrain implements DrivetrainInterface {
 
     public  void moveForwardByRevolution (int revolutions, double power) {
         mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mFrontRight.setTargetPosition(revolutions);
+        mFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

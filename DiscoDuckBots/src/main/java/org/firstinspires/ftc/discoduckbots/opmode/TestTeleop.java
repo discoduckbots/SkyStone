@@ -76,7 +76,7 @@ public class TestTeleop extends LinearOpMode {
                 mMecanumDrivetrain.stop();
             }
             if(gamepad2.b){
-                mMecanumDrivetrain.moveForwardByRevolution(5,.5);
+                mMecanumDrivetrain.moveForwardByRevolution(25,.5);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
                     idle();
                 }
