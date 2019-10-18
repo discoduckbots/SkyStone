@@ -103,7 +103,10 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             mMecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             if (gamepad1.a) {
-                mIntakeWheels.spin();
+                mIntakeWheels.spinInward();
+            }
+            else if (gamepad1.b) {
+                mIntakeWheels.spinOutward();
             }
             else {
                 mIntakeWheels.stop();

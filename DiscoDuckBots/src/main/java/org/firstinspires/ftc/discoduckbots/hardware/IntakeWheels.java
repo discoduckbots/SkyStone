@@ -15,15 +15,21 @@ public class IntakeWheels {
         mLeftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    public void spin(){
+    public void spinInward(){
         mLeftIntake.setPower(1);
         mRightIntake.setPower(1);
+    }
+
+    public void spinOutward (){
+        mLeftIntake.setPower(-.5);
+        mRightIntake.setPower(-.5);
     }
 
     public void stop(){
         mLeftIntake.setPower(0);
         mRightIntake.setPower(0);
     }
+
 
 
 }
