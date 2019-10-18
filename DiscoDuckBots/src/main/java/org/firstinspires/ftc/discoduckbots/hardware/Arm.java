@@ -9,6 +9,9 @@ public class Arm {
     private Servo mWrist;
     private Servo mGrabber;
 
+    private final static int GRABBER_UP = 0;
+    private final static int GRABBER_DOWN = 1;
+
     public Arm (DcMotor linearSlide, Servo wrist, Servo grabber){
         mLinearSlide = linearSlide;
         mWrist = wrist;
@@ -24,11 +27,11 @@ public class Arm {
     }
 
     public void grab(){
-
+        mGrabber.setPosition(1);
     }
 
-    public void release(){
-
+    public void release() {
+        mGrabber.setPosition(0);
     }
     public void flip(){
 
