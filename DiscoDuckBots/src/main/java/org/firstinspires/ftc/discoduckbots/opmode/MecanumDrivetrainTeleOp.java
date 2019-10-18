@@ -71,7 +71,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        DcMotor frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
+        DcMotor frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -81,7 +81,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        DcMotor linearSlide = hardwareMap.get(DcMotor.class,"linearSlide");
+        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
         Servo wrist = hardwareMap.get(Servo.class, "wrist");
         Servo grabber = hardwareMap.get(Servo.class, "grabber");
         mArm = new Arm(linearSlide, wrist, grabber);
@@ -104,15 +104,14 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
             if (gamepad1.a) {
                 mIntakeWheels.spin();
-            }
-            else {
+            } else {
                 mIntakeWheels.stop();
             }
 
             /* Gamepad 2 */
             mArm.lift(gamepad2.right_stick_y);
 
-            if (gamepad2.x){
+            if (gamepad2.x) {
                 mArm.flip();
             }
 
@@ -120,14 +119,21 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
                 mArm.flop();
             }
 
+            if (gamepad2.a) {
+                mArm.grab();
+            }
 
-            // Show the elapsed game time.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.update();
+            if (gamepad2.b) {
+                mArm.release();
 
+                // Show the elapsed game time.
+                telemetry.addData("Status", "Run Time: " + runtime.toString());
+                telemetry.update();
+
+            }
+
+            telemetry.addData("MecanumDrivetrainTeleOp", "Stopping");
+            mMecanumDrivetrain.stop();
         }
-
-        telemetry.addData("MecanumDrivetrainTeleOp" , "Stopping");
-        mMecanumDrivetrain.stop();
-}
+    }
 }
