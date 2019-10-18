@@ -15,12 +15,8 @@ public class Arm {
         mGrabber = grabber;
     }
 
-    public void lift(){
-
-    }
-
-    public void lower(){
-
+    public void lift(double power){
+        mLinearSlide.setPower(power);
     }
 
     public void grab(){
@@ -31,10 +27,12 @@ public class Arm {
 
     }
     public void flip(){
-
+        mWrist.setDirection(Servo.Direction.FORWARD);
+        mWrist.setPosition(1.0);
     }
 
     public void flop(){
-
+        mWrist.setDirection(Servo.Direction.REVERSE);
+        mWrist.setPosition(0.0);
     }
 }

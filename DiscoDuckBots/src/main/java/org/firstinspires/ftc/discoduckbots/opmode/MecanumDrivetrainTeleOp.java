@@ -31,8 +31,10 @@ package org.firstinspires.ftc.discoduckbots.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.discoduckbots.hardware.Arm;
 import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
@@ -57,6 +59,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
     private IntakeWheels mIntakeWheels = null;
+    private Arm mArm = null;
+
 
 
     @Override
@@ -77,6 +81,11 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
+        DcMotor linearSlide = hardwareMap.get(DcMotor.class,"linearSlide");
+        Servo wrist = hardwareMap.get(Servo.class, "wrist");
+        Servo grabber = hardwareMap.get(Servo.class, "grabber");
+        mArm = new Arm(linearSlide, wrist, grabber);
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         // TODO : how are our motors connected ? Are any reversed ?
@@ -90,6 +99,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
+            /* Gamepad 1 */
             mMecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             if (gamepad1.a) {
@@ -98,6 +108,18 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             else {
                 mIntakeWheels.stop();
             }
+
+            /* Gamepad 2 */
+            mArm.lift(gamepad2.right_stick_y);
+
+            if (gamepad2.x){
+                mArm.flip();
+            }
+
+            if (gamepad2.y) {
+                mArm.flop();
+            }
+
 
             // Show the elapsed game time.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
