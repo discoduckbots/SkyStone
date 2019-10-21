@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.discoduckbots.opmode.BlueStoneSide;
 import org.firstinspires.ftc.discoduckbots.util.NumberUtility;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -251,6 +252,13 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontLeft.setPower(speed);
         mFrontRight.setPower(-speed);
         opMode.sleep(1000 * time);
+    }
 
+    public void strafeLeftByTime(LinearOpMode opMode, int speed, int time) {
+        mFrontLeft.setPower(-speed);
+        mFrontRight.setPower(speed);
+        mBackLeft.setPower(speed);
+        mBackRight.setPower(-speed);
+        opMode.sleep(1000*time);
     }
 }
