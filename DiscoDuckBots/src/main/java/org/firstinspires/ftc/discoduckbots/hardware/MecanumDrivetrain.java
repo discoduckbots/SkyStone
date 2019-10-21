@@ -33,10 +33,14 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackRight = backRight;
 
         mBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        mBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        mFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        mBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        mFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         mFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        mBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
@@ -69,12 +73,6 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontLeft.setPower(fl);
         mBackRight.setPower(br);
         mBackLeft.setPower(bl);
-
-        mTelemetry.addData("Motors",
-                "frontL (%.2f), frontR (%.2f), backL (%.2f), backR (%.2f)",
-                fl, fr, bl, br);
-        mTelemetry.update();
-
     }
 
     /**
@@ -227,11 +225,11 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontRight.setTargetPosition(revolutions);
         mFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        mFrontLeft.setPower(power);
+        //mFrontLeft.setPower(power);
         mBackRight.setPower(power);
         mFrontRight.setPower(power);
         mBackLeft.setPower(power);

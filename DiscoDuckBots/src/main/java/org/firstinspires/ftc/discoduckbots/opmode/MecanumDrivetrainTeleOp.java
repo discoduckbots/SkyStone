@@ -61,16 +61,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private IntakeWheels mIntakeWheels = null;
     private Arm mArm = null;
 
-
-
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
         DcMotor frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
@@ -81,22 +73,14 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
-        Servo wrist = hardwareMap.get(Servo.class, "wrist");
-        Servo grabber = hardwareMap.get(Servo.class, "grabber");
-        mArm = new Arm(linearSlide, wrist, grabber);
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        // TODO : how are our motors connected ? Are any reversed ?
-        //leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        //rightDrive.setDirection(DcMotor.Direction.REVERSE);
+//        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
+//        Servo wrist = hardwareMap.get(Servo.class, "wrist");
+//        Servo grabber = hardwareMap.get(Servo.class, "grabber");
+//        mArm = new Arm(linearSlide, wrist, grabber);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
             /* Gamepad 1 */
@@ -111,33 +95,28 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             else {
                 mIntakeWheels.stop();
             }
-
-            /* Gamepad 2 */
-            mArm.lift(gamepad2.right_stick_y);
-
-            if (gamepad2.x) {
-                mArm.flip();
-            }
-
-            if (gamepad2.y) {
-                mArm.flop();
-            }
-
-            if (gamepad2.a) {
-                mArm.grab();
-            }
-
-            if (gamepad2.b) {
-                mArm.release();
-
-                // Show the elapsed game time.
-                telemetry.addData("Status", "Run Time: " + runtime.toString());
-                telemetry.update();
-
-            }
-
-            telemetry.addData("MecanumDrivetrainTeleOp", "Stopping");
-            mMecanumDrivetrain.stop();
+//
+//            /* Gamepad 2 */
+//            mArm.lift(gamepad2.right_stick_y);
+//
+//            if (gamepad2.x) {
+//                mArm.flip();
+//            }
+//
+//            if (gamepad2.y) {
+//                mArm.flop();
+//            }
+//
+//            if (gamepad2.a) {
+//                mArm.grab();
+//            }
+//
+//            if (gamepad2.b) {
+//                mArm.release();
+//            }
         }
+
+        telemetry.addData("MecanumDrivetrainTeleOp", "Stopping");
+        mMecanumDrivetrain.stop();
     }
 }

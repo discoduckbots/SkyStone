@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.discoduckbots.opmode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
+@Disabled
 public class SkystoneAutonomous extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();

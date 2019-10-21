@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.discoduckbots.opmode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TestMecanum OpMode", group="Linear Opmode")
+@Disabled
 public class TestTeleop extends LinearOpMode {
 
 
