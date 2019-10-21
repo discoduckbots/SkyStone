@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.discoduckbots.hardware;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -233,5 +234,23 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackRight.setPower(power);
         mFrontRight.setPower(power);
         mBackLeft.setPower(power);
+    }
+
+    public void forwardByTime(LinearOpMode opMode, int speed, int time) {
+        mBackLeft.setPower(speed);
+        mBackRight.setPower(speed);
+        mFrontRight.setPower(speed);
+        mFrontLeft.setPower(speed);
+        opMode.sleep(1000 * time);
+
+    }
+
+    public void strafeRightByTime(LinearOpMode opMode, int speed, int time) {
+        mBackLeft.setPower(-speed);
+        mBackRight.setPower(speed);
+        mFrontLeft.setPower(speed);
+        mFrontRight.setPower(-speed);
+        opMode.sleep(1000 * time);
+
     }
 }

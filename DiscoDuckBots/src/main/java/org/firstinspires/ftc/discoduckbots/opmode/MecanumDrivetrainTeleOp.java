@@ -59,7 +59,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
     private IntakeWheels mIntakeWheels = null;
-    private Arm mArm = null;
+//    private Arm mArm = null;
 
     @Override
     public void runOpMode() {
