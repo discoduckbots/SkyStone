@@ -221,6 +221,8 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackLeft.setPower(power * (-1));
     }
 
+
+
     public  void moveForwardByRevolution (int revolutions, double power) {
         mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mFrontRight.setTargetPosition(revolutions);
@@ -253,4 +255,20 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         opMode.sleep(1000 * time);
 
     }
+    public void strafeLeftByTime(LinearOpMode opMode, int speed, int time) {
+        mBackLeft.setPower(speed);
+        mBackRight.setPower(-speed);
+        mFrontLeft.setPower(-speed);
+        mFrontRight.setPower(speed);
+        opMode.sleep(1000 * time);
+
+    }
+    public void backwardByTime(LinearOpMode opMode, int speed, int time) {
+        mBackLeft.setPower(-speed);
+        mBackRight.setPower(-speed);
+        mFrontLeft.setPower(-speed);
+        mFrontRight.setPower(-speed);
+        opMode.sleep(1000 * time);
+    }
 }
+
