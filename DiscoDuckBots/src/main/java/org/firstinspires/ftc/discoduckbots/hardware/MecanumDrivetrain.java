@@ -239,37 +239,37 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackLeft.setPower(power);
     }
 
-    public void forwardByTime(LinearOpMode opMode, int speed, int time) {
+    public void forwardByTime(LinearOpMode opMode, double speed, double time) {
         mBackLeft.setPower(speed);
         mBackRight.setPower(speed);
         mFrontRight.setPower(speed);
         mFrontLeft.setPower(speed);
-        opMode.sleep(1000 * time);
+        opMode.sleep((long)(1000 * time));
 
     }
 
-    public void strafeRightByTime(LinearOpMode opMode, int speed, int time) {
+    public void strafeRightByTime(LinearOpMode opMode, double speed, double time) {
         mBackLeft.setPower(-speed);
         mBackRight.setPower(speed);
         mFrontLeft.setPower(speed);
         mFrontRight.setPower(-speed);
-        opMode.sleep(1000 * time);
+        opMode.sleep((long)(1000 * time));
     }
 
-    public void strafeLeftByTime(LinearOpMode opMode, int speed, int time) {
+    public void strafeLeftByTime(LinearOpMode opMode, double speed, double time) {
         mFrontLeft.setPower(-speed);
         mFrontRight.setPower(speed);
         mBackLeft.setPower(speed);
         mBackRight.setPower(-speed);
-        opMode.sleep(1000*time);
+        opMode.sleep((long)(1000*time));
     }
 
-    public void backwardByTime(LinearOpMode opMode, int speed, int time) {
+    public void backwardByTime(LinearOpMode opMode, double speed, double time) {
         mBackLeft.setPower(-speed);
         mBackRight.setPower(-speed);
         mFrontLeft.setPower(-speed);
         mFrontRight.setPower(-speed);
-        opMode.sleep(1000 * time);
+        opMode.sleep((long)(1000 * time));
     }
 }
 

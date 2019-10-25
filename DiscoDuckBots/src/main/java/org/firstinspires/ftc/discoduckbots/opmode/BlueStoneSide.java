@@ -31,7 +31,9 @@ public class BlueStoneSide extends LinearOpMode {
 
 
         // run until the end of the match (driver presses STOP)
-        mMecanumDrivetrain.forwardByTime(this, 1,2);
-        mMecanumDrivetrain.strafeLeftByTime(this,1,2);
+        mMecanumDrivetrain.forwardByTime(this, .5,.46);
+        mMecanumDrivetrain.stop();
+        mMecanumDrivetrain.strafeLeftByTime(this,.5,.7);
+        mMecanumDrivetrain.stop();
     }
 }

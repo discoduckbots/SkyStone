@@ -30,8 +30,9 @@ public class RedStoneSide extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        mMecanumDrivetrain.forwardByTime(this, 1,2);
-        mMecanumDrivetrain.strafeRightByTime(this,1,1);
+        mMecanumDrivetrain.forwardByTime(this, .5,.46);
+        mMecanumDrivetrain.stop();
+        mMecanumDrivetrain.strafeRightByTime(this,.5,.7);
         mMecanumDrivetrain.stop();
         // run until the end of the match (driver presses STOP)
 
