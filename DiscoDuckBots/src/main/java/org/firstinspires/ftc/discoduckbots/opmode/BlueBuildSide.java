@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
-
-public class RedBuildSide extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="BlueBuildSide", group="Linear Opmode")
+public class BlueBuildSide extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
@@ -30,17 +30,12 @@ public class RedBuildSide extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        mMecanumDrivetrain.strafeRightByTime(this,1,3);
-        mMecanumDrivetrain.forwardByTime(this, 1,3);
-        grabFoundation();
-        mMecanumDrivetrain.backwardByTime(this, 1, 3);
         mMecanumDrivetrain.strafeLeftByTime(this,1,3);
+        mMecanumDrivetrain.forwardByTime(this, 1,3);
+        mMecanumDrivetrain.backwardByTime(this, 1, 3);
+        mMecanumDrivetrain.strafeRightByTime(this,1,3);
         mMecanumDrivetrain.stop();
         // run until the end of the match (driver presses STOP)
-
-    }
-
-    private void grabFoundation() {
 
     }
 }
