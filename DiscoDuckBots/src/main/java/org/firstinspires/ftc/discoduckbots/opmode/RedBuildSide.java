@@ -30,10 +30,16 @@ public class RedBuildSide extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        mMecanumDrivetrain.strafeLeftByTime(this,1,3);
-        mMecanumDrivetrain.forwardByTime(this, 1,3);
-        mMecanumDrivetrain.backwardByTime(this, 1, 3);
-        mMecanumDrivetrain.strafeRightByTime(this,1,3);
+        mMecanumDrivetrain.strafeLeftByTime(this,.5,1.65);
+        mMecanumDrivetrain.stop();
+        sleep(10);
+        mMecanumDrivetrain.backwardByTime(this, .5,.8);
+        mMecanumDrivetrain.stop();
+        sleep(10);
+        mMecanumDrivetrain.forwardByTime(this, .5, .8);
+        mMecanumDrivetrain.stop();
+        sleep(10);
+        mMecanumDrivetrain.strafeRightByTime(this,.5,2);
         mMecanumDrivetrain.stop();
         // run until the end of the match (driver presses STOP)
 

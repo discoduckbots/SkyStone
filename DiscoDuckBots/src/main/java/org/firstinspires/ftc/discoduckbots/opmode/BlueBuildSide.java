@@ -24,7 +24,7 @@ public class BlueBuildSide extends LinearOpMode {
         DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        Servo dragger  = hardwareMap.get(Servo.class, "dragger");
+        //Servo dragger  = hardwareMap.get(Servo.class, "dragger");
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
 
 
@@ -32,12 +32,18 @@ public class BlueBuildSide extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        mMecanumDrivetrain.strafeRightByTime(this,.5,3);
-        mMecanumDrivetrain.backwardByTime(this, .5,3);
-        grabFoundation(dragger);
-        mMecanumDrivetrain.forwardByTime(this, .5, 3);
-        releaseFoundation(dragger);
-        mMecanumDrivetrain.strafeLeftByTime(this,1,3);
+        mMecanumDrivetrain.strafeRightByTime(this,.5,1.65);
+        mMecanumDrivetrain.stop();
+        sleep(10);
+        mMecanumDrivetrain.backwardByTime(this, .5,.8);
+        mMecanumDrivetrain.stop();
+        sleep(10);
+        //grabFoundation(dragger);
+        mMecanumDrivetrain.forwardByTime(this, .5, .8);
+        mMecanumDrivetrain.stop();
+        sleep(10);
+        //releaseFoundation(dragger);
+        mMecanumDrivetrain.strafeLeftByTime(this,.5,2);
         mMecanumDrivetrain.stop();
         // run until the end of the match (driver presses STOP)
 
@@ -46,6 +52,8 @@ public class BlueBuildSide extends LinearOpMode {
     private void releaseFoundation(Servo dragger) {
         dragger.setDirection(Servo.Direction.FORWARD);
         dragger.setPosition(0.0);
+
+
     }
 
     private void grabFoundation(Servo dragger) {
