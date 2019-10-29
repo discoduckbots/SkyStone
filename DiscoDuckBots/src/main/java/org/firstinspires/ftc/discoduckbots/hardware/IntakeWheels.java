@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.discoduckbots.hardware;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -31,5 +33,14 @@ public class IntakeWheels {
     }
 
 
+    public void spinInwardByTime(LinearOpMode opMode, double time) {
+        spinInward();
+        opMode.sleep((long)(time * 1000));
+    }
+
+    public void spinOutwardByTime(LinearOpMode opMode, double time) {
+        spinOutward();
+        opMode.sleep((long)(time * 1000));
+    }
 
 }
