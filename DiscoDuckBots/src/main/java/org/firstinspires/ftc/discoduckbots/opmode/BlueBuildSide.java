@@ -2,6 +2,7 @@ package org.firstinspires.ftc.discoduckbots.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -24,41 +25,42 @@ public class BlueBuildSide extends LinearOpMode {
         DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        //Servo dragger  = hardwareMap.get(Servo.class, "dragger");
+        CRServo dragger  = hardwareMap.get(CRServo.class, "dragger");
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
 
 
-        // wait for start
+        // wait for starT
         waitForStart();
         runtime.reset();
 
         mMecanumDrivetrain.strafeRightByTime(this,.5,1.65);
         mMecanumDrivetrain.stop();
         sleep(10);
-        mMecanumDrivetrain.backwardByTime(this, .5,.8);
+        mMecanumDrivetrain.backwardByTime(this, .5,.6);
         mMecanumDrivetrain.stop();
         sleep(10);
-        //grabFoundation(dragger);
-        mMecanumDrivetrain.forwardByTime(this, .5, .8);
+        grabFoundation(dragger);
+        mMecanumDrivetrain.forwardByTime(this, .5, .6);
         mMecanumDrivetrain.stop();
         sleep(10);
-        //releaseFoundation(dragger);
+        releaseFoundation(dragger);
         mMecanumDrivetrain.strafeLeftByTime(this,.5,2);
         mMecanumDrivetrain.stop();
         // run until the end of the match (driver presses STOP)
 
     }
 
-    private void releaseFoundation(Servo dragger) {
-        dragger.setDirection(Servo.Direction.FORWARD);
-        dragger.setPosition(0.0);
+    private void releaseFoundation(CRServo dragger) {
+    dragger.setPower(-1);
+    sleep(1000);
+    dragger.setPower(0);
 
 
     }
 
-    private void grabFoundation(Servo dragger) {
-        dragger.setDirection(Servo.Direction.FORWARD);
-        dragger.setPosition(1.0);
+    private void grabFoundation(CRServo dragger) {
+      dragger.setPower(1);
+      sleep(1000);
 
     }
 }

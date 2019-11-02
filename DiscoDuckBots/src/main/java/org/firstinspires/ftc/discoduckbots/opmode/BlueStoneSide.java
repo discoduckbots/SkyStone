@@ -29,7 +29,7 @@ public class BlueStoneSide extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        // wait for sart
+        // wait for start
         waitForStart();
         runtime.reset();
 
@@ -75,7 +75,7 @@ public class BlueStoneSide extends LinearOpMode {
     }
 
     private void goToBuildingSite() {
-        mMecanumDrivetrain.backwardByTime(this, .5, .1);
+        mMecanumDrivetrain.backwardByTime(this, .5, .3);
         mMecanumDrivetrain.strafeLeftByTime(this, .5, 1);
     }
 
@@ -92,6 +92,6 @@ public class BlueStoneSide extends LinearOpMode {
     }
 
     private void moveTowardsTheBlock() {
-        mMecanumDrivetrain.forwardByTime(this,.5,.55);
+        mMecanumDrivetrain.forwardByTime(this,.5,.25);
     }
 }
