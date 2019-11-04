@@ -13,7 +13,7 @@ import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 public class BlueBuildSide extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private MecanumDrivetrain mMecanumDrivetrain = null;
+  private MecanumDrivetrain mMecanumDrivetrain = null;
 
 
     @Override
@@ -29,22 +29,20 @@ public class BlueBuildSide extends LinearOpMode {
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
 
 
-        // wait for starT
+        // wait for start
         waitForStart();
         runtime.reset();
-
-        mMecanumDrivetrain.strafeRightByTime(this,.5,1.65);
-        mMecanumDrivetrain.stop();
-        sleep(10);
         mMecanumDrivetrain.backwardByTime(this, .5,.6);
         mMecanumDrivetrain.stop();
         sleep(10);
-        grabFoundation(dragger);
-        mMecanumDrivetrain.forwardByTime(this, .5, .6);
+
+     grabFoundation(dragger);
+        mMecanumDrivetrain.forwardByTime(this, .5, 1.3);
         mMecanumDrivetrain.stop();
         sleep(10);
-        releaseFoundation(dragger);
-        mMecanumDrivetrain.strafeLeftByTime(this,.5,2);
+
+       releaseFoundation(dragger);
+        mMecanumDrivetrain.strafeLeftByTime(this,.5,1.5);
         mMecanumDrivetrain.stop();
         // run until the end of the match (driver presses STOP)
 
@@ -52,7 +50,7 @@ public class BlueBuildSide extends LinearOpMode {
 
     private void releaseFoundation(CRServo dragger) {
     dragger.setPower(-1);
-    sleep(1000);
+    sleep(4000);
     dragger.setPower(0);
 
 
@@ -60,7 +58,7 @@ public class BlueBuildSide extends LinearOpMode {
 
     private void grabFoundation(CRServo dragger) {
       dragger.setPower(1);
-      sleep(1000);
+      sleep(4000);
 
     }
 }

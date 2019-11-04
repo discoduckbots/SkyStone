@@ -67,7 +67,7 @@ public class BlueStoneSide extends LinearOpMode {
     }
 
     private void parkUnderBridge() {
-        mMecanumDrivetrain.strafeRightByTime(this,.5,.2);
+        mMecanumDrivetrain.strafeRightByTime(this,.5,.6);
     }
 
     private void dropStone() {
@@ -75,8 +75,8 @@ public class BlueStoneSide extends LinearOpMode {
     }
 
     private void goToBuildingSite() {
-        mMecanumDrivetrain.backwardByTime(this, .5, .3);
-        mMecanumDrivetrain.strafeLeftByTime(this, .5, 1);
+        mMecanumDrivetrain.backwardByTime(this, .5, .9);
+        mMecanumDrivetrain.strafeLeftByTime(this, .5, .6);
     }
 
     private void takeTheStone() {
