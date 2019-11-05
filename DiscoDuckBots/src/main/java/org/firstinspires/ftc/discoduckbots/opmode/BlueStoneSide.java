@@ -63,11 +63,29 @@ public class BlueStoneSide extends LinearOpMode {
 
         dropStone();
 
+        goToSecondStone();
+
+        takeTheStone();
+
+        goToBuildingSite2();
+
+        dropStone();
+
         parkUnderBridge();
     }
 
     private void parkUnderBridge() {
-        mMecanumDrivetrain.strafeRightByTime(this,.5,.6);
+        mMecanumDrivetrain.strafeRightByTime(this,.5,.9);
+    }
+
+    private void goToBuildingSite2() {
+        mMecanumDrivetrain.backwardByTime(this,.5,.89);
+        mMecanumDrivetrain.strafeLeftByTime(this,.5,1.3);
+    }
+
+    private void goToSecondStone() {
+        mMecanumDrivetrain.strafeRightByTime(this,.5,2.1);
+        mMecanumDrivetrain.forwardByTime(this,.5,.1);
     }
 
     private void dropStone() {
@@ -75,12 +93,14 @@ public class BlueStoneSide extends LinearOpMode {
     }
 
     private void goToBuildingSite() {
-        mMecanumDrivetrain.backwardByTime(this, .5, .9);
-        mMecanumDrivetrain.strafeLeftByTime(this, .5, .6);
+        mMecanumDrivetrain.backwardByTime(this, .5, .89);
+        mMecanumDrivetrain.strafeLeftByTime(this, .5, 1.5);
+        mMecanumDrivetrain.stop();
     }
 
     private void takeTheStone() {
         mIntakeWheels.spinInwardByTime(this, 1);
+        mIntakeWheels.stop();
     }
 
     private void moveTowardsStone(int position) {

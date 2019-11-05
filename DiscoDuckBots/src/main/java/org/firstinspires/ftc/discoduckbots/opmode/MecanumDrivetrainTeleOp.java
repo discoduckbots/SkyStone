@@ -30,11 +30,13 @@
 package org.firstinspires.ftc.discoduckbots.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.discoduckbots.hardware.Arm;
+import org.firstinspires.ftc.discoduckbots.hardware.DraggerServo;
 import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
@@ -72,7 +74,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor intakeLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
-
+        CRServo dragger  = hardwareMap.get(CRServo.class, "dragger");
+        DraggerServo draggerServo = new DraggerServo(dragger);
 //        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
 //        Servo wrist = hardwareMap.get(Servo.class, "wrist");
 //        Servo grabber = hardwareMap.get(Servo.class, "grabber");
@@ -95,6 +98,18 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             else {
                 mIntakeWheels.stop();
             }
+            if (gamepad1.x) {
+                draggerServo.moveDown();
+            }
+
+            else if (gamepad1.y) {
+                draggerServo.moveUp();
+            }
+
+            else {
+                draggerServo.stop ();
+            }
+
 //
 //            /* Gamepad 2 */
 //            mArm.lift(gamepad2.right_stick_y);
@@ -114,7 +129,9 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 //            if (gamepad2.b) {
 //                mArm.release();
 //            }
+
         }
+
 
         telemetry.addData("MecanumDrivetrainTeleOp", "Stopping");
         mMecanumDrivetrain.stop();
