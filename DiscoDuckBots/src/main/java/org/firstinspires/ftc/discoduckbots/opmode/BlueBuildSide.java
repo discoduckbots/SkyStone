@@ -11,55 +11,60 @@ import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="BlueBuildSide", group="Linear Opmode")
 public class BlueBuildSide extends LinearOpMode {
-    // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-  private MecanumDrivetrain mMecanumDrivetrain = null;
-
+    private MecanumDrivetrain mMecanumDrivetrain = null;
+    private CRServo mDragger = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-
-        // initialize
+        // initialize hardware
         DcMotor frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        CRServo dragger  = hardwareMap.get(CRServo.class, "dragger");
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
-
+        mDragger  = hardwareMap.get(CRServo.class, "dragger");
 
         // wait for start
         waitForStart();
         runtime.reset();
-        mMecanumDrivetrain.backwardByTime(this, .5,.6);
+
+        autonomousByTime();
+    }
+
+    private void autonomousByTime(){
+        //Strafe to Position
+        mMecanumDrivetrain.strafeRightByTime(this,.3,2.4);
+
+        //Drive to foundation
+        mMecanumDrivetrain.backwardByTime(this, .5,.68);
         mMecanumDrivetrain.stop();
         sleep(10);
 
-     grabFoundation(dragger);
-        mMecanumDrivetrain.forwardByTime(this, .5, 1.3);
+        //Grab Foundation
+        grabFoundation();
+
+        //Pull into Build Area
+        mMecanumDrivetrain.forwardByTime(this, .5, 1.4);
         mMecanumDrivetrain.stop();
         sleep(10);
 
-       releaseFoundation(dragger);
+        //Release Foundation
+        releaseFoundation();
+
+        //Park under Bridge
         mMecanumDrivetrain.strafeLeftByTime(this,.5,1.5);
         mMecanumDrivetrain.stop();
-        // run until the end of the match (driver presses STOP)
-
     }
 
-    private void releaseFoundation(CRServo dragger) {
-    dragger.setPower(-1);
-    sleep(4000);
-    dragger.setPower(0);
-
-
+    private void releaseFoundation() {
+        mDragger.setPower(-1);
+        sleep(4000);
+        mDragger.setPower(0);
     }
 
-    private void grabFoundation(CRServo dragger) {
-      dragger.setPower(1);
-      sleep(4000);
-
+    private void grabFoundation() {
+        mDragger.setPower(1);
+        sleep(4000);
     }
 }
-

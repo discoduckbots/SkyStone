@@ -9,109 +9,65 @@ import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="BlueStoneSide", group="Linear Opmode")
 public class BlueStoneSide extends LinearOpMode {
-    // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
     private IntakeWheels mIntakeWheels = null;
 
-
     @Override
     public void runOpMode() throws InterruptedException {
-
-
-        // initialize
+        // initialize hardware
         DcMotor frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
+
         DcMotor intakeLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        // wait for start
         waitForStart();
         runtime.reset();
 
-
-        competition2Autonomous();
-
-
-       // competition1Autonomous();
+        autonomousByTime();
     }
 
-    private void competition1Autonomous() {
-        // run until the end of the match (driver presses STOP)
-        mMecanumDrivetrain.forwardByTime(this, .5,.46);
-        mMecanumDrivetrain.stop();
-        mMecanumDrivetrain.strafeRightByTime(this, .5,.5);
-        mMecanumDrivetrain.stop();
-        mMecanumDrivetrain.strafeLeftByTime(this,.5,.7);
-        mMecanumDrivetrain.stop();
-    }
+    public void autonomousByTime(){
+        //moveTowardsTheBlock();
+        mMecanumDrivetrain.forwardByTime(this, 0.5, 0.25);
 
-    private void competition2Autonomous() {
-        moveTowardsTheBlock();
-
-        int position = findSkystonePosition();
-
-        moveTowardsStone(position);
-
-        takeTheStone();
-
-        goToBuildingSite();
-
-        dropStone();
-
-        goToSecondStone();
-
-        takeTheStone();
-
-        goToBuildingSite2();
-
-        dropStone();
-
-        parkUnderBridge();
-    }
-
-    private void parkUnderBridge() {
-        mMecanumDrivetrain.strafeRightByTime(this,.5,.9);
-    }
-
-    private void goToBuildingSite2() {
-        mMecanumDrivetrain.backwardByTime(this,.5,.89);
-        mMecanumDrivetrain.strafeLeftByTime(this,.5,1.3);
-    }
-
-    private void goToSecondStone() {
-        mMecanumDrivetrain.strafeRightByTime(this,.5,2.1);
-        mMecanumDrivetrain.forwardByTime(this,.5,.1);
-    }
-
-    private void dropStone() {
-        mIntakeWheels.spinOutwardByTime(this, 1);
-    }
-
-    private void goToBuildingSite() {
-        mMecanumDrivetrain.backwardByTime(this, .5, .89);
-        mMecanumDrivetrain.strafeLeftByTime(this, .5, 1.5);
-        mMecanumDrivetrain.stop();
-    }
-
-    private void takeTheStone() {
+        //takeTheStone();
         mIntakeWheels.spinInwardByTime(this, 1);
         mIntakeWheels.stop();
-    }
 
-    private void moveTowardsStone(int position) {
+        //goToBuildingSite();
+        mMecanumDrivetrain.backwardByTime(this, .5, .89);
+        mMecanumDrivetrain.strafeLeftByTime(this, .5, 1.4);
+        mMecanumDrivetrain.stop();
 
-    }
+        //dropStone();
+        mIntakeWheels.spinOutwardByTime(this, 1);
 
-    private int findSkystonePosition() {
-        return 1;
-    }
+        //goToSecondStone();
+        mMecanumDrivetrain.strafeRightByTime(this,.5,2);
+        mMecanumDrivetrain.backwardByTime(this,.3,1);
+        mMecanumDrivetrain.forwardByTime(this,.5,.28);
 
-    private void moveTowardsTheBlock() {
-        mMecanumDrivetrain.forwardByTime(this,.5,.25);
+        //takeTheStone();
+        mIntakeWheels.spinInwardByTime(this, 1);
+        mIntakeWheels.stop();
+
+        //goToBuildingSite2();
+        mMecanumDrivetrain.backwardByTime(this,.5,.89);
+        mMecanumDrivetrain.strafeLeftByTime(this,.5,2);
+        mMecanumDrivetrain.stop();
+
+        //dropStone();
+        mIntakeWheels.spinOutwardByTime(this, 1);
+
+        //parkUnderBridge();
+        mMecanumDrivetrain.strafeRightByTime(this,.5,.5);
+        mMecanumDrivetrain.forwardByTime(this,.2,.85);
+        mMecanumDrivetrain.stop();
     }
 }
