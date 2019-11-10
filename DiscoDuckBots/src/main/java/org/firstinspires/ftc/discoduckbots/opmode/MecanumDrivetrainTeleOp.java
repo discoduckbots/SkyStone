@@ -57,6 +57,8 @@ import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Mecanum OpMode", group="Linear Opmode")
 public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
+    private static final double THROTTLE = 0.25;
+
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
@@ -88,7 +90,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             /* Gamepad 1 */
-            mMecanumDrivetrain.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y * .5, gamepad1.right_stick_x);
+            mMecanumDrivetrain.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_stick_x, THROTTLE);
 
             if (gamepad1.a) {
                 mIntakeWheels.spinInward();

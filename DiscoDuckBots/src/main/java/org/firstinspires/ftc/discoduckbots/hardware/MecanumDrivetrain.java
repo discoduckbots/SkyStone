@@ -35,7 +35,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackRight = backRight;
 
         mBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        mBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        mBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
         mFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         mFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -44,6 +44,21 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+    }
+
+    /**
+     * Overload of drive method that allows for throttling of power
+     * @param speedX - the x value of the joystick controlling strafe
+     * @param speedY - the y value of the joystick controlling the forward/backward motion
+     * @param rotation - the x value of the joystick controlling the rotation
+     * @param throttle - the amount to throttle the power of the motors
+     */
+    public void drive(double speedX, double speedY, double rotation, double throttle){
+        double throttledX = speedX * throttle;
+        double throttledY = speedY * throttle;
+        double throttledRotation = rotation * throttle;
+
+        drive(throttledX, throttledY, throttledRotation);
     }
 
     /**
