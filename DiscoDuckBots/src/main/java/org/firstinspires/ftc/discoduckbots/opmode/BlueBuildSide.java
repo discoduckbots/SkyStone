@@ -29,7 +29,49 @@ public class BlueBuildSide extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        autonomousByTime();
+        autonomousByEncoder();
+    }
+
+    private void autonomousByEncoder(){
+        double autonomousSpeed = 0.25;
+
+        //1. Strafe Right 35 Inches
+        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 1", "Strafe Right 35\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //2. Drive Reverse 29 Inches
+        mMecanumDrivetrain.driveByDistance(29, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 2", "Drive Reverse 29\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //3. Lower Dragger Arm to Grab Foundation
+        grabFoundation();
+
+        //4. Drive Forward 40 Inches
+        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 4", "Drive Forward 40\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //5. Raise Dragger Arm to Release Foundation
+        releaseFoundation();
+
+        //6. Strafe Left 55 Inches
+        mMecanumDrivetrain.driveByDistance(55, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 6", "Strafe Left 55\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
     }
 
     private void autonomousByTime(){

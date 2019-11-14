@@ -4,13 +4,18 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.discoduckbots.opmode.BlueStoneSide;
 import org.firstinspires.ftc.discoduckbots.util.NumberUtility;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class MecanumDrivetrain implements DrivetrainInterface {
-    // TODO: What is the diameter of the wheels in inches
-    private static final double WHEEL_DIAMETER = 1;
+    private static final float ENCODER_CLICKS_FORWARD_1_INCH = 18.75487911f;
+    private static final float ENCODER_CLICKS_STRAFE_1_INCH = 25.8944908f;
+
+    public static final int DIRECTION_FORWARD = 0;
+    public static final int DIRECTION_REVERSE = 1;
+    public static final int DIRECTION_STRAFE_RIGHT = 2;
+    public static final int DIRECTION_STRAFE_LEFT = 3;
+
     private DcMotor mFrontLeft;
     private DcMotor mFrontRight;
     private DcMotor mBackLeft;
@@ -34,16 +39,39 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackLeft = backLeft;
         mBackRight = backRight;
 
-        mBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        mBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        mFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        mFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        setMotorDirection(DIRECTION_FORWARD);
 
         mBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         mFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
 
+    private void setMotorDirection(int direction){
+        if (DIRECTION_REVERSE == direction){
+            mBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+            mBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
+            mFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+            mFrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        }
+        else if (DIRECTION_STRAFE_LEFT == direction){
+            mBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+            mBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
+            mFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+            mFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        }
+        else if (DIRECTION_STRAFE_RIGHT == direction){
+            mBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+            mBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            mFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+            mFrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        }
+        else{
+            mBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+            mBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            mFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+            mFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        }
     }
 
     /**
@@ -103,155 +131,72 @@ public class MecanumDrivetrain implements DrivetrainInterface {
 
     }
 
-    // TODO: Not sure whether encoders will work for mecanum wheels
-    // Added this to try it out
-
     /**
-     * This function moves the mecanum motor forward or backward by specifying the distance to move
-     * After calling this function make sure to add the following to wait for the
-     * robot to finish moving
-     * while (opModeIsActive() && mecanumMotor.isBusy())  {
-     *     idle();
-     * }
-     * @param distance - positive value in inches to move forward
-     *                 - negative value in inches to move backwards
+     * Method to drive a specified distance using motor encoder functionality
+     *
+     * @param inches - The Number Of Inches to Move
+     * @param direction - The Direction to Move
+     *                  - Valid Directions:
+     *                  - MecanumDrivetrain.DIRECTION_FORWARD
+     *                  - MecanumDrivetrain.DIRECTION_REVERSE
+     *                  - MecanumDrivetrain.DIRECTION_STRAFE_LEFT
+     *                  - MecanumDrivetrain.DIRECTION_STRAFE_RIGHT
+     * @param speed - The desired motor power (most accurate at low powers < 0.25)
      */
-    public void driveByDistance(int power, int distance) {
-        int direction = 1;
-        // if the distance is negative, move all the wheels in opposite direction
-        if (distance < 1) direction = -1;
-
-        // convert the absolute distance to number of rotations
-        int target = convertDistanceToTarget(Math.abs(distance));
-        mTelemetry.addData("driveByDistance: ", "target: ", target);
-
-        // set the power of the motors according to the direction they need to go to straf
-        mFrontLeft.setPower(power * direction );
-        mFrontRight.setPower(power * direction);
-        mBackLeft.setPower(power * direction);
-        mBackRight.setPower(power * direction);
-
-        // set all motors except the front left to go without encoder
-        mFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        // use the front left - just picked random to measure the rotations
-        // and set the rotations to the distance to go
-        mFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        mFrontLeft.setTargetPosition(target);
+    public void driveByDistance(int inches, int direction, double speed){
+        setMotorDirection(direction);
+        driveByRevolution(convertDistanceToTarget(inches, direction), speed);
     }
 
-    /**
-     * This function moves the mecanum motor sideways by specifying the distance to move
-     * After calling this function make sure to add the following to wait for the
-     * robot to finish moving
-     * while (opModeIsActive() && mecanumMotor.isBusy())  {
-     *   idle();
-     * }
-     * @param distance - positive value in inches to straf to the right
-     *                 - negative value in inches to straf to the left
-     */
-    // https://stemrobotics.cs.pdx.edu/node/4746
-    public void strafByDistance(int power, int distance) {
-        int direction = 1;
-        // if the distance is negative, move all the wheels in opposite direction
-        if (distance < 1) direction = -1;
+    private int convertDistanceToTarget(int inches, int direction){
+        float target;
 
-        // convert the absolute distance to number of rotations
-        int target = convertDistanceToTarget(Math.abs(distance));
-        mTelemetry.addData("strafByDistance: ", "target: ", target);
+        if (DIRECTION_FORWARD == direction || DIRECTION_REVERSE == direction){
+            target = inches * ENCODER_CLICKS_FORWARD_1_INCH;
+        }
+        else{
+            target = inches * ENCODER_CLICKS_STRAFE_1_INCH;
+        }
 
-        // set the power of the motors according to the direction they need to go to straf
-        mFrontLeft.setPower(power * direction );
-        mFrontRight.setPower(power * direction * (-1));
-        mBackLeft.setPower(power * direction * (-1));
-        mBackRight.setPower(power * direction);
-
-        // set all motors except the front left to go without encoder
-        mFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        // use the front left - just picked random to measure the rotations
-        // and set the rotations to the distance to go
-        mFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        mFrontLeft.setTargetPosition(target);
-    }
-
-    private int convertDistanceToTarget(int distance) {
-        return (int)(distance / (Math.PI * WHEEL_DIAMETER));
+        return Math.round(target);
     }
 
     /**
      * Returns if atleast one of the wheels is moving
-     * @return
+     * @return true if the robot is moving
      */
     public boolean isMoving() {
-        // TODO should this be all && or || ?
-        return mFrontLeft.isBusy() && mFrontRight.isBusy() && mBackRight.isBusy() && mBackLeft.isBusy();
+        return mFrontLeft.isBusy() || mFrontRight.isBusy() || mBackRight.isBusy() || mBackLeft.isBusy();
     }
 
-    public void frontLeftForward(double power) {
-        mFrontLeft.setPower(power);
-        mFrontRight.setPower(0);
-        mBackLeft.setPower(0);
-        mBackRight.setPower(0);
-    }
+    /**
+     * Method will motors a specified number of revolutions at the desired power
+     * agnostic of direction.
+     *
+     * @param revolutions - the number of motor encoder ticks to move
+     * @param power - the speed at which to move
+     */
+    private void driveByRevolution(int revolutions, double power){
+        mFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mFrontLeft.setTargetPosition(revolutions);
+        mFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-    public void  frontRightForward (double power)  {
-        mFrontRight.setPower(power);
-        mFrontLeft.setPower(0);
-        mBackRight.setPower(0);
-        mBackLeft.setPower(0);
-    }
+        mBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mBackRight.setTargetPosition(revolutions);
+        mBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-    public void backLeftForward(double power) {
-        mBackLeft.setPower(power);
-        mBackRight.setPower(0);
-        mFrontLeft.setPower(0);
-        mFrontRight.setPower(0);
-    }
+        mBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mBackLeft.setTargetPosition(revolutions);
+        mBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-    public void  backRightForward (double power)  {
-        mBackRight.setPower(power);
-        mBackLeft.setPower(0);
-        mFrontLeft.setPower(0);
-        mFrontRight.setPower(0);
-    }
-
-    public  void strafeRightByRevolution (int revolutions, double power) {
-        mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mFrontRight.setTargetPosition(revolutions);
         mFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         mFrontLeft.setPower(power);
         mBackRight.setPower(power);
-        mFrontRight.setPower(power * (-1));
-        mBackLeft.setPower(power * (-1));
-    }
-
-
-
-    public  void moveForwardByRevolution (int revolutions, double power) {
-        mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mFrontRight.setTargetPosition(revolutions);
-        mFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        //mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        //mFrontLeft.setPower(power);
-        mBackRight.setPower(power);
-        mFrontRight.setPower(power);
         mBackLeft.setPower(power);
+        mFrontRight.setPower(power);
     }
 
     public void forwardByTime(LinearOpMode opMode, double speed, double time) {
@@ -287,4 +232,3 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         opMode.sleep((long)(1000 * time));
     }
 }
-

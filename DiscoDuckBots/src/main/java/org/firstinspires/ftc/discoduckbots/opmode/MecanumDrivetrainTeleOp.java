@@ -57,7 +57,7 @@ import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Mecanum OpMode", group="Linear Opmode")
 public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
-    private static final double THROTTLE = 0.25;
+    private static final double THROTTLE = 0.35;
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();

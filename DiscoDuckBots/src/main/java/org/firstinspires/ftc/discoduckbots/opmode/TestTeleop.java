@@ -40,45 +40,44 @@ public class TestTeleop extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
             if(gamepad1.a){
-                mMecanumDrivetrain.strafeRightByRevolution(1,.5);
+                mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, 0.5);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
-                    idle();
+
                 }
                 mMecanumDrivetrain.stop();
             }
             if(gamepad1.b){
-                mMecanumDrivetrain.strafeRightByRevolution(5,.5);
+                mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, 0.25);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
-                    idle();
+
                 }
                 mMecanumDrivetrain.stop();
             }
 
             if(gamepad1.x){
-                mMecanumDrivetrain.strafeRightByRevolution(1,1);
+                mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, 1);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
-                    idle();
+
                 }
                 mMecanumDrivetrain.stop();
             }
             if(gamepad1.y){
-                mMecanumDrivetrain.strafeRightByRevolution(1,.1);
+                mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, 0.1);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
-                    idle();
+
                 }
                 mMecanumDrivetrain.stop();
             }
             if(gamepad2.a){
-                mMecanumDrivetrain.moveForwardByRevolution(1,.5);
+                mMecanumDrivetrain.driveByDistance(2,MecanumDrivetrain.DIRECTION_FORWARD, .5);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
                     idle();
                 }
                 mMecanumDrivetrain.stop();
             }
             if(gamepad2.b){
-                mMecanumDrivetrain.moveForwardByRevolution(25,.5);
+                mMecanumDrivetrain.driveByDistance(4,MecanumDrivetrain.DIRECTION_FORWARD, .5);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
                     idle();
                 }
@@ -86,14 +85,14 @@ public class TestTeleop extends LinearOpMode {
             }
 
             if(gamepad2.x){
-                mMecanumDrivetrain.moveForwardByRevolution(1,1);
+                mMecanumDrivetrain.driveByDistance(5,MecanumDrivetrain.DIRECTION_FORWARD, .5);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
                     idle();
                 }
                 mMecanumDrivetrain.stop();
             }
             if(gamepad2.y){
-                mMecanumDrivetrain.moveForwardByRevolution(1,.1);
+                mMecanumDrivetrain.driveByDistance(6,MecanumDrivetrain.DIRECTION_FORWARD, .5);
                 while (opModeIsActive() && mMecanumDrivetrain.isMoving())  {
                     idle();
                 }
