@@ -38,10 +38,10 @@ public class BlueStoneSide extends LinearOpMode {
         //01. Intake Wheels In
         mIntakeWheels.spinInward();
 
-        //02. Drive Forward 40 Inches
-        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        //02. Drive Forward 50 Inches
+        mMecanumDrivetrain.driveByDistance(50, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 2", "Drive Forward 40\"");
+            telemetry.addData("Step 2", "Drive Forward 50\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -49,10 +49,10 @@ public class BlueStoneSide extends LinearOpMode {
         //03. Intake Wheels Stop
         mIntakeWheels.stop();
 
-        //04. Drive Reverse 15 Inches
-        mMecanumDrivetrain.driveByDistance(15, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        //04. Drive Reverse 25 Inches
+        mMecanumDrivetrain.driveByDistance(25, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 4", "Drive Reverse 15\"");
+            telemetry.addData("Step 4", "Drive Reverse 25\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -82,10 +82,10 @@ public class BlueStoneSide extends LinearOpMode {
         //09. Intake Wheels In
         mIntakeWheels.spinInward();
 
-        //10. Drive Forward 15 Inches
-        mMecanumDrivetrain.driveByDistance(15, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        //10. Drive Forward 25 Inches
+        mMecanumDrivetrain.driveByDistance(25, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 10", "Drive Forward 15\"");
+            telemetry.addData("Step 10", "Drive Forward 25\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -93,8 +93,8 @@ public class BlueStoneSide extends LinearOpMode {
         //11. Intake Wheels Stop
         mIntakeWheels.stop();
 
-        //12. Drive Reverse 15 Inches
-        mMecanumDrivetrain.driveByDistance(15, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        //12. Drive Reverse 25 Inches
+        mMecanumDrivetrain.driveByDistance(25, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 12", "Drive Reverse 15\"");
             telemetry.update();

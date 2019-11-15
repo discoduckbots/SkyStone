@@ -8,7 +8,7 @@ import org.firstinspires.ftc.discoduckbots.util.NumberUtility;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class MecanumDrivetrain implements DrivetrainInterface {
-    private static final float ENCODER_CLICKS_FORWARD_1_INCH = 18.75487911f;
+    private static final float ENCODER_CLICKS_FORWARD_1_INCH = 19.0f;//18.75487911f;
     private static final float ENCODER_CLICKS_STRAFE_1_INCH = 25.8944908f;
 
     public static final int DIRECTION_FORWARD = 0;
