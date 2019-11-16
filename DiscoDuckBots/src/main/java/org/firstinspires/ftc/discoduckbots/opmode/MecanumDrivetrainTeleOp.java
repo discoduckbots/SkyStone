@@ -101,11 +101,13 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             else {
                 mIntakeWheels.stop();
             }
-            if (gamepad1.x) {
+
+
+            if (gamepad2.x) {
                 draggerServo.moveDown();
             }
 
-            else if (gamepad1.y) {
+            else if (gamepad2.y) {
                 draggerServo.moveUp();
             }
 

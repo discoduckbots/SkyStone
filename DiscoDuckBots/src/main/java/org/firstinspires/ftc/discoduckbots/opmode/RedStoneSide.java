@@ -29,7 +29,7 @@ public class RedStoneSide extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        autonomousByTime();
+        autonomousByEncoder();
     }
 
     public void autonomousByTime(){
@@ -68,6 +68,106 @@ public class RedStoneSide extends LinearOpMode {
         //parkUnderBridge();
         mMecanumDrivetrain.strafeLeftByTime(this,.5,.35);
         mMecanumDrivetrain.forwardByTime(this,.2,.7);
+        mMecanumDrivetrain.stop();
+    }
+
+    public void autonomousByEncoder(){
+        double autonomousSpeed = .25;
+
+        //01. Intake Wheels In
+        mIntakeWheels.spinInward();
+
+        //02. Drive Forward 50 Inches
+        mMecanumDrivetrain.driveByDistance(50, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 2", "Drive Forward 50\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //03. Intake Wheels Stop
+        mIntakeWheels.stop();
+
+        //04. Drive Reverse 25 Inches
+        mMecanumDrivetrain.driveByDistance(25, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 4", "Drive Reverse 25\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //05. Strafe Right 42 Inches
+        mMecanumDrivetrain.driveByDistance(42, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 5", "Strafe Right 42\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //06. Intake Wheels Out
+        mIntakeWheels.spinOutwardByTime(this, 2);
+
+        //07. Intake Wheels Stop
+        mIntakeWheels.stop();
+
+        //08. Strafe Left 65 Inches
+        mMecanumDrivetrain.driveByDistance(65, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 8", "Strafe Left 65\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //09. Intake Wheels In
+        mIntakeWheels.spinInward();
+
+        //10. Drive Forward 25 Inches
+        mMecanumDrivetrain.driveByDistance(25, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 10", "Drive Forward 25\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //11. Intake Wheels Stop
+        mIntakeWheels.stop();
+
+        //12. Drive Reverse 25 Inches
+        mMecanumDrivetrain.driveByDistance(25, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 12", "Drive Reverse 15\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //13. Strafe Right 65 Inches
+        mMecanumDrivetrain.driveByDistance(65, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 13", "Strafe Right 65\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //14. Intake Wheels Out
+        mIntakeWheels.spinOutwardByTime(this, 2);
+
+        //15. Intake Wheels Stop
+        mIntakeWheels.stop();
+
+        //16. Strafe Left 18 Inches
+        mMecanumDrivetrain.driveByDistance(18, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 16", "Strafe Left 18\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //17. Drive Forward 5 Inches
+        mMecanumDrivetrain.driveByDistance(5, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 17", "Drive Forward 5\"");
+            telemetry.update();
+        }
         mMecanumDrivetrain.stop();
     }
 }

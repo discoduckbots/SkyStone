@@ -29,7 +29,7 @@ public class RedBuildSide extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        autonomousByTime();
+        autonomousByEncoder();
     }
 
     private void autonomousByTime(){
@@ -56,6 +56,49 @@ public class RedBuildSide extends LinearOpMode {
         mMecanumDrivetrain.strafeRightByTime(this,.5,1.5);
         mMecanumDrivetrain.stop();
     }
+
+    private void autonomousByEncoder(){
+        double autonomousSpeed = 0.10;
+
+        //1. Strafe Left 35 Inches
+        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 1", "Strafe Left 35\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //2. Drive Reverse 36 Inches
+        mMecanumDrivetrain.driveByDistance(36, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 2", "Drive Reverse 36\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //3. Lower Dragger Arm to Grab Foundation
+        grabFoundation();
+
+        //4. Drive Forward 115 Inches
+        mMecanumDrivetrain.driveByDistance(90, MecanumDrivetrain.DIRECTION_FORWARD, 0.5);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 4", "Drive Forward 115\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+
+        //5. Raise Dragger Arm to Release Foundation
+        releaseFoundation();
+
+        //6. Strafe Right 55 Inches
+        mMecanumDrivetrain.driveByDistance(55, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 6", "Strafe Right 55\"");
+            telemetry.update();
+        }
+        mMecanumDrivetrain.stop();
+    }
+
 
     private void releaseFoundation() {
         mDragger.setPower(-1);
