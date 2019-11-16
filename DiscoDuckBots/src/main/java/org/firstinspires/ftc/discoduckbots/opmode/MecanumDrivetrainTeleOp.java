@@ -57,7 +57,7 @@ import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Mecanum OpMode", group="Linear Opmode")
 public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
-    private static final double THROTTLE = 0.35;
+    private static final double THROTTLE = 0.45;
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -77,8 +77,9 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        CRServo dragger  = hardwareMap.get(CRServo.class, "dragger");
-        DraggerServo draggerServo = new DraggerServo(dragger);
+        CRServo dragger = hardwareMap.get(CRServo.class, "dragger");
+        CRServo dragger2 = hardwareMap.get(CRServo.class, "dragger2");
+        DraggerServo draggerServo = new DraggerServo(dragger,dragger2);
 //        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
 //        Servo wrist = hardwareMap.get(Servo.class, "wrist");
 //        Servo grabber = hardwareMap.get(Servo.class, "grabber");
