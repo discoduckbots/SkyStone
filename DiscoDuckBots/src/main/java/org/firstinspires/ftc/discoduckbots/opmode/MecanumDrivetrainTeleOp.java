@@ -39,6 +39,7 @@ import org.firstinspires.ftc.discoduckbots.hardware.Arm;
 import org.firstinspires.ftc.discoduckbots.hardware.DraggerServo;
 import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
+import org.firstinspires.ftc.discoduckbots.hardware.MotorBasedDragger;
 
 
 /**
@@ -63,6 +64,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
     private IntakeWheels mIntakeWheels = null;
+    private MotorBasedDragger mDragger = null;
 //    private Arm mArm = null;
 
     @Override
@@ -77,9 +79,9 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        CRServo dragger = hardwareMap.get(CRServo.class, "dragger");
-        CRServo dragger2 = hardwareMap.get(CRServo.class, "dragger2");
-        DraggerServo draggerServo = new DraggerServo(dragger,dragger2);
+        DcMotor draggerMotor = hardwareMap.get(DcMotor.class, "draggerMotor");
+        mDragger = new MotorBasedDragger(draggerMotor);
+
 //        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
 //        Servo wrist = hardwareMap.get(Servo.class, "wrist");
 //        Servo grabber = hardwareMap.get(Servo.class, "grabber");
@@ -105,15 +107,15 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
 
             if (gamepad2.x) {
-                draggerServo.moveDown();
+                mDragger.move(0.1);
             }
 
             else if (gamepad2.y) {
-                draggerServo.moveUp();
+                mDragger.move(-0.1);
             }
 
             else {
-                draggerServo.stop ();
+                mDragger.stop ();
             }
 
 //
