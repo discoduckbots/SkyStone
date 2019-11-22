@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.discoduckbots.hardware.DraggerServo;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="RedBuildSide", group="Linear Opmode")
@@ -14,6 +15,8 @@ public class RedBuildSide extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
     private CRServo mDragger = null;
+    private CRServo mDragger2;
+    private DraggerServo mDraggerServo;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -79,10 +82,10 @@ public class RedBuildSide extends LinearOpMode {
         //3. Lower Dragger Arm to Grab Foundation
         grabFoundation();
 
-        //4. Drive Forward 115 Inches
-        mMecanumDrivetrain.driveByDistance(90, MecanumDrivetrain.DIRECTION_FORWARD, 0.5);
+        //4. Drive Forward 40 Inches
+        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 4", "Drive Forward 115\"");
+            telemetry.addData("Step 4", "Drive Forward 40\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -101,14 +104,11 @@ public class RedBuildSide extends LinearOpMode {
 
 
     private void releaseFoundation() {
-        mDragger.setPower(-1);
-        sleep(4000);
-        mDragger.setPower(0);
+        mDraggerServo.up(this);
     }
 
     private void grabFoundation() {
-        mDragger.setPower(1);
-        sleep(4000);
+       mDraggerServo.down(this);
     }
 }
 

@@ -59,10 +59,10 @@ public class BlueBuildSide extends LinearOpMode {
         //3. Lower Dragger Arm to Grab Foundation
         grabFoundation();
 
-        //4. Drive Forward 115 Inches
-        mMecanumDrivetrain.driveByDistance(90, MecanumDrivetrain.DIRECTION_FORWARD, 0.5);
+        //4. Drive Forward 40 Inches
+        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 4", "Drive Forward 115\"");
+            telemetry.addData("Step 4", "Drive Forward 40\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
