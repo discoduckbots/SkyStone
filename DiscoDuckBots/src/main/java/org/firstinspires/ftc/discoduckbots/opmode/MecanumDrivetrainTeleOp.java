@@ -118,7 +118,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
 //
 //            /* Gamepad 2 */
-//            mArm.lift(gamepad2.right_stick_y);
+//            mArm.moveVertical(gamepad2.right_stick_y);
 //
 //            if (gamepad2.x) {
 //                mArm.flip();
