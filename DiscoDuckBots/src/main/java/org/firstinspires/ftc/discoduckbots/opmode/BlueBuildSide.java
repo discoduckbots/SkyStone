@@ -9,14 +9,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.discoduckbots.hardware.DraggerServo;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
+import org.firstinspires.ftc.discoduckbots.hardware.MotorBasedDragger;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="BlueBuildSide", group="Linear Opmode")
 public class BlueBuildSide extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
-    private CRServo mDragger = null;
-    private CRServo mDragger2;
-    private DraggerServo mDraggerServo;
+    private MotorBasedDragger mDragger = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -26,9 +25,8 @@ public class BlueBuildSide extends LinearOpMode {
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
-        mDragger  = hardwareMap.get(CRServo.class, "dragger");
-        mDragger2 = hardwareMap.get(CRServo.class, "dragger2");
-        mDraggerServo = new DraggerServo(mDragger,mDragger2);
+        DcMotor draggerMotor = hardwareMap.get(DcMotor.class, "dragger");
+        mDragger = new MotorBasedDragger(draggerMotor);
 
         // wait for start
         waitForStart();
@@ -105,11 +103,14 @@ public class BlueBuildSide extends LinearOpMode {
     }
 
     private void releaseFoundation() {
-        mDraggerServo.up(this);
-
+        mDragger.move(-0.5);
+        sleep(2000);
+        mDragger.stop();
     }
 
     private void grabFoundation() {
-        mDraggerServo.down(this);
+        mDragger.move(0.5);
+        sleep(3000);
+
     }
 }

@@ -79,7 +79,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        DcMotor draggerMotor = hardwareMap.get(DcMotor.class, "draggerMotor");
+        DcMotor draggerMotor = hardwareMap.get(DcMotor.class, "dragger");
         mDragger = new MotorBasedDragger(draggerMotor);
 
 //        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
@@ -107,11 +107,11 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
 
             if (gamepad2.x) {
-                mDragger.move(0.1);
+                mDragger.move(0.3);
             }
 
             else if (gamepad2.y) {
-                mDragger.move(-0.1);
+                mDragger.move(-0.3);
             }
 
             else {

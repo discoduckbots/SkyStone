@@ -72,10 +72,10 @@ public class BlueStoneSide extends LinearOpMode {
         //07. Intake Wheels Stop
         mIntakeWheels.stop();
 
-        //08. Strafe Right 65 Inches
-        mMecanumDrivetrain.driveByDistance(65, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        //08. Strafe Right 66 Inches
+        mMecanumDrivetrain.driveByDistance(66, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 8", "Strafe Right 65\"");
+            telemetry.addData("Step 8", "Strafe Right 66\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -83,10 +83,10 @@ public class BlueStoneSide extends LinearOpMode {
         //09. Intake Wheels In
         mIntakeWheels.spinInward();
 
-        //10. Drive Forward 25 Inches
-        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        //10. Drive Forward 35 Inches
+        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_FORWARD, 0.2);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 10", "Drive Forward 25\"");
+            telemetry.addData("Step 10", "Drive Forward 35\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -102,10 +102,10 @@ public class BlueStoneSide extends LinearOpMode {
         }
         mMecanumDrivetrain.stop();
 
-        //13. Strafe Left 65 Inches
-        mMecanumDrivetrain.driveByDistance(65, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        //13. Strafe Left 66 Inches
+        mMecanumDrivetrain.driveByDistance(66, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 13", "Strafe Left 65\"");
+            telemetry.addData("Step 13", "Strafe Left 66\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();

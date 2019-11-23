@@ -78,7 +78,7 @@ public class RedStoneSide extends LinearOpMode {
         mIntakeWheels.spinInward();
 
         //02. Drive Forward 50 Inches
-        mMecanumDrivetrain.driveByDistance(50, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(50, MecanumDrivetrain.DIRECTION_FORWARD, .2);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 2", "Drive Forward 50\"");
             telemetry.update();
@@ -111,7 +111,7 @@ public class RedStoneSide extends LinearOpMode {
         mIntakeWheels.stop();
 
         //08. Strafe Left 65 Inches
-        mMecanumDrivetrain.driveByDistance(65, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(66, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 8", "Strafe Left 65\"");
             telemetry.update();
@@ -122,7 +122,7 @@ public class RedStoneSide extends LinearOpMode {
         mIntakeWheels.spinInward();
 
         //10. Drive Forward 25 Inches
-        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_FORWARD, .2);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 10", "Drive Forward 25\"");
             telemetry.update();
@@ -140,8 +140,8 @@ public class RedStoneSide extends LinearOpMode {
         }
         mMecanumDrivetrain.stop();
 
-        //13. Strafe Right 65 Inches
-        mMecanumDrivetrain.driveByDistance(65, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        //13. Strafe Right 66 Inches
+        mMecanumDrivetrain.driveByDistance(66, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 13", "Strafe Right 65\"");
             telemetry.update();
