@@ -80,7 +80,7 @@ public class TensorFlowSkystoneFinderTest {
     @Test
     public void getSkystoneDiceRoll_whenNoRecognitionsPassed_ShouldReturnNull(){
         TensorFlowSkystoneFinder finder = new TensorFlowSkystoneFinder();
-        Integer result = finder.getSkystoneDiceRoll(null, true);
+        Integer result = finder.getSkystoneDiceRoll(null, null, true);
         assertNull(result);
     }
 
@@ -92,7 +92,7 @@ public class TensorFlowSkystoneFinderTest {
         Recognition recognition = new TestRecognition("Stone", 0);
         recognitions.add(recognition);
 
-        Integer result = finder.getSkystoneDiceRoll(recognitions, true);
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, true);
         assertNull(result);
     }
 
@@ -104,7 +104,7 @@ public class TensorFlowSkystoneFinderTest {
         Recognition recognition = new TestRecognition("Skystone", 0);
         recognitions.add(recognition);
 
-        Integer result = finder.getSkystoneDiceRoll(recognitions, true);
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, true);
         assertEquals(3, result.intValue());
     }
 
@@ -116,7 +116,7 @@ public class TensorFlowSkystoneFinderTest {
         Recognition recognition = new TestRecognition("Stone", 0);
         recognitions.add(recognition);
 
-        Integer result = finder.getSkystoneDiceRoll(recognitions, true);
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, true);
         assertNull(result);
     }
 
@@ -132,7 +132,7 @@ public class TensorFlowSkystoneFinderTest {
         Recognition recognition1 = new TestRecognition("Stone", 10);
         recognitions.add(recognition1);
 
-        Integer result = finder.getSkystoneDiceRoll(recognitions, true);
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, true);
         assertEquals(1, result.intValue());
     }
 
@@ -148,25 +148,25 @@ public class TensorFlowSkystoneFinderTest {
         Recognition recognition1 = new TestRecognition("Skystone", 10);
         recognitions.add(recognition1);
 
-        Integer result = finder.getSkystoneDiceRoll(recognitions, true);
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, true);
         assertEquals(3, result.intValue());
     }
-
-    @Test
-    public void getSkystoneDiceRoll_whenTwoRecognitionsLeftmostOneIsSkystoneOnRedSide_ShouldReturn2(){
-        TensorFlowSkystoneFinder finder = new TensorFlowSkystoneFinder();
-
-        List<Recognition> recognitions = new ArrayList<>();
-
-        Recognition recognition = new TestRecognition("Stone", 0);
-        recognitions.add(recognition);
-
-        Recognition recognition1 = new TestRecognition("Skystone", -10);
-        recognitions.add(recognition1);
-
-        Integer result = finder.getSkystoneDiceRoll(recognitions, true);
-        assertEquals(2, result.intValue());
-    }
+//
+//    @Test
+//    public void getSkystoneDiceRoll_whenTwoRecognitionsLeftmostOneIsSkystoneOnRedSide_ShouldReturn2(){
+//        TensorFlowSkystoneFinder finder = new TensorFlowSkystoneFinder();
+//
+//        List<Recognition> recognitions = new ArrayList<>();
+//
+//        Recognition recognition = new TestRecognition("Stone", 0);
+//        recognitions.add(recognition);
+//
+//        Recognition recognition1 = new TestRecognition("Skystone", -10);
+//        recognitions.add(recognition1);
+//
+//        Integer result = finder.getSkystoneDiceRoll(null, recognitions, true);
+//        assertEquals(2, result.intValue());
+//    }
 
     @Test
     public void getSkystoneDiceRoll_whenTwoRecognitionsRightmostOneIsSkystoneOnBlueSide_ShouldReturn2(){
@@ -180,7 +180,7 @@ public class TensorFlowSkystoneFinderTest {
         Recognition recognition1 = new TestRecognition("Skystone", 10);
         recognitions.add(recognition1);
 
-        Integer result = finder.getSkystoneDiceRoll(recognitions, false);
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, false);
         assertEquals(2, result.intValue());
     }
 
@@ -196,7 +196,23 @@ public class TensorFlowSkystoneFinderTest {
         Recognition recognition1 = new TestRecognition("Skystone", -10);
         recognitions.add(recognition1);
 
-        Integer result = finder.getSkystoneDiceRoll(recognitions, false);
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, false);
         assertEquals(3, result.intValue());
+    }
+
+    @Test
+    public void getSkystoneDiceRoll_whenTwoRecognitionsLeftmostOneIsSkystoneOnRedSide_ShouldReturn2(){
+        TensorFlowSkystoneFinder finder = new TensorFlowSkystoneFinder();
+
+        List<Recognition> recognitions = new ArrayList<>();
+
+        Recognition recognition1 = new TestRecognition("Skystone", -6.2f);
+        recognitions.add(recognition1);
+
+        Recognition recognition = new TestRecognition("Stone", 359.3f);
+        recognitions.add(recognition);
+
+        Integer result = finder.getSkystoneDiceRoll(null, recognitions, true);
+        assertEquals(2, result.intValue());
     }
 }

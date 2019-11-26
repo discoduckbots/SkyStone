@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.discoduckbots.util;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.Collections;
@@ -11,21 +12,9 @@ public class TensorFlowSkystoneFinder {
     private static final String SKYSTONE_LABEL = "Skystone";
 
     /**
-     * On Red Side need to evaluate blocks from Right to Left (i.e. left value descending)
+     * Sort by Left Value in Ascending Order
      */
-    private class SortRecognitionsByLeftValueRedSide implements Comparator<Recognition>{
-        @Override
-        public int compare(Recognition r1, Recognition r2) {
-            Float r1Left = r1.getLeft();
-            Float r2Left = r2.getLeft();
-            return r2Left.compareTo(r1Left);
-        }
-    }
-
-    /**
-     * On Blue Side need to evaluate blocks from Left to Right (i.e. left value ascending)
-     */
-    private class SortRecognitionsByLeftValueBlueSide implements Comparator<Recognition>{
+    private class SortRecognitionsByLeftValue implements Comparator<Recognition>{
         @Override
         public int compare(Recognition r1, Recognition r2) {
             Float r1Left = r1.getLeft();
@@ -38,6 +27,8 @@ public class TensorFlowSkystoneFinder {
      * Method takes a list of tensor flow recognitions and returns the dice roll.
      * Can be used in autonomous to determine which stones are skystones.
      *
+     *
+     * @param telemetry
      * @param recognitionList - A List of TensorFlow Recognitions
      * @param isRedSide - a boolean value helping to know which side of field we
      *                  are on
@@ -46,7 +37,7 @@ public class TensorFlowSkystoneFinder {
      *           3 - if the dice rolled was either 3 or 6
      *        null - if there is not enough recognitions to determine the roll
      */
-    public Integer getSkystoneDiceRoll(List<Recognition> recognitionList, boolean isRedSide){
+    public Integer getSkystoneDiceRoll(Telemetry telemetry, List<Recognition> recognitionList, boolean isRedSide){
 
         /* If No Recognitions or One Non-Skystone Recognition - we don't have enough data  */
         if (recognitionList == null || recognitionList.size() == 0 ||
@@ -54,13 +45,19 @@ public class TensorFlowSkystoneFinder {
             return null;
         }
 
-        /* Sort List of Recognitions Depending on which side we are looking at it from */
         if (isRedSide){
-            Collections.sort(recognitionList, new SortRecognitionsByLeftValueRedSide());
+            /* Reverse the Order if looking from Red Side as we want to evaluate Right Most Blocks first */
+            Collections.sort(recognitionList, Collections.reverseOrder(new SortRecognitionsByLeftValue()));
         }
         else{
-            Collections.sort(recognitionList, new SortRecognitionsByLeftValueBlueSide());
+            Collections.sort(recognitionList, new SortRecognitionsByLeftValue());
         }
+
+//        telemetry.addData("Number of Recognitions: ", recognitionList.size());
+//        for (int i=0; i<recognitionList.size(); i++){
+//            telemetry.addData("label" + i, recognitionList.get(i).getLabel()+" " + recognitionList.get(i).getLeft());
+//        }
+//        telemetry.update();
 
         /* Evaluate Recognitions from Outside in to see which is the Skystone */
         for (int i=0; i<recognitionList.size(); i++){

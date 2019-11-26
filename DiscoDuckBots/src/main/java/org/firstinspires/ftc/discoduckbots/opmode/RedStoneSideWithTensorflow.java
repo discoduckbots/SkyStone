@@ -53,7 +53,11 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
 
         if (tfod != null) {
             tfod.activate();
+        }else {
+            telemetry.addData("TDOD is null", "");
+            telemetry.update();
         }
+
 
         waitForStart();
         runtime.reset();
@@ -67,11 +71,17 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
 
         //01. Get Tensorflow Data to Determine Dice Roll & set Strafe Offset
         List<Recognition> recognitionList = tfod.getRecognitions();
-        Integer diceRoll = skystoneFinder.getSkystoneDiceRoll(recognitionList, true);
+
+        telemetry.update();
+
+
+        Integer diceRoll = skystoneFinder.getSkystoneDiceRoll(telemetry, recognitionList, true);
+
         if (Integer.valueOf(2) == diceRoll){
             strafeOffset = 8;
         }
         else if (Integer.valueOf(1).equals(diceRoll)){
+
             strafeOffset = 16;
         }
 
