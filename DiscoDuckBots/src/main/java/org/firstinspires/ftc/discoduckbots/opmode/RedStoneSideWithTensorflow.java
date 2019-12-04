@@ -8,6 +8,7 @@ import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.discoduckbots.util.TensorFlowSkystoneFinder;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -43,21 +44,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
 
-        initVuforia();
-
-        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
-            initTfod();
-        } else {
-            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
-        }
-
-        if (tfod != null) {
-            tfod.activate();
-        }else {
-            telemetry.addData("TDOD is null", "");
-            telemetry.update();
-        }
-
+        initTensorflow(telemetry);
 
         waitForStart();
         runtime.reset();
@@ -72,18 +59,19 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         //01. Get Tensorflow Data to Determine Dice Roll & set Strafe Offset
         List<Recognition> recognitionList = tfod.getRecognitions();
 
-        telemetry.update();
-
-
         Integer diceRoll = skystoneFinder.getSkystoneDiceRoll(telemetry, recognitionList, true);
 
-        if (Integer.valueOf(2) == diceRoll){
+        if (Integer.valueOf(2).equals(diceRoll)){
             strafeOffset = 8;
         }
         else if (Integer.valueOf(1).equals(diceRoll)){
-
             strafeOffset = 16;
         }
+
+        telemetry.addData("number of recognitions: ", recognitionList.size());
+        telemetry.addData("die roll: ", diceRoll);
+        telemetry.addData("strafe offset: ", strafeOffset);
+        telemetry.update();
 
         //02. Strafe Left by Offset Amount
         mMecanumDrivetrain.driveByDistance(strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
@@ -188,25 +176,31 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
     /**
      * Initialize the Vuforia localization engine.
      */
-    private void initVuforia() {
-        /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         */
+    private void initVuforia(Telemetry telemetry) {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
-
-        //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
-
-        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
 
     /**
      * Initialize the TensorFlow Object Detection engine.
      */
-    private void initTfod() {
+    private void initTensorflow(Telemetry telemetry) {
+        initVuforia(telemetry);
+
+        if (!ClassFactory.getInstance().canCreateTFObjectDetector()) {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
+
+        if (tfod != null) {
+            tfod.activate();
+        }else {
+            telemetry.addData("TDOD is null", "");
+            telemetry.update();
+        }
+
+
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);

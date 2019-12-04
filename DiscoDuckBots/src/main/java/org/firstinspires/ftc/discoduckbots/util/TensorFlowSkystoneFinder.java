@@ -53,12 +53,6 @@ public class TensorFlowSkystoneFinder {
             Collections.sort(recognitionList, new SortRecognitionsByLeftValue());
         }
 
-//        telemetry.addData("Number of Recognitions: ", recognitionList.size());
-//        for (int i=0; i<recognitionList.size(); i++){
-//            telemetry.addData("label" + i, recognitionList.get(i).getLabel()+" " + recognitionList.get(i).getLeft());
-//        }
-//        telemetry.update();
-
         /* Evaluate Recognitions from Outside in to see which is the Skystone */
         for (int i=0; i<recognitionList.size(); i++){
             Recognition recognition = recognitionList.get(i);
