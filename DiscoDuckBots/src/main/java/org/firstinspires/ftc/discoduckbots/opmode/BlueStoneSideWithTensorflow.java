@@ -16,8 +16,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="RedStoneSide-TF", group="Linear Opmode")
-public class RedStoneSideWithTensorflow extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="BlueStoneSide-TF", group="Linear Opmode")
+public class BlueStoneSideWithTensorflow extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
@@ -59,7 +59,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         //01. Get Tensorflow Data to Determine Dice Roll & set Strafe Offset
         List<Recognition> recognitionList = tfod.getRecognitions();
 
-        Integer diceRoll = skystoneFinder.getSkystoneDiceRoll(telemetry, recognitionList, true);
+        Integer diceRoll = skystoneFinder.getSkystoneDiceRoll(telemetry, recognitionList, false);
 
         if (Integer.valueOf(2).equals(diceRoll)){
             strafeOffset = 8;
@@ -73,8 +73,8 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         telemetry.addData("strafe offset: ", strafeOffset);
         telemetry.update();
 
-        //02. Strafe Left by Offset Amount
-        mMecanumDrivetrain.driveByDistance(strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        //02. Strafe Right by Offset Amount
+        mMecanumDrivetrain.driveByDistance(strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
 
         //03. Intake Wheels In
         mIntakeWheels.spinInward();
@@ -98,10 +98,10 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         }
         mMecanumDrivetrain.stop();
 
-        //07. Strafe Right 42 Inches + Strafe Offset
-        mMecanumDrivetrain.driveByDistance(42 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        //07. Strafe Left 42 Inches + Strafe Offset
+        mMecanumDrivetrain.driveByDistance(42 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 7", "Strafe Right 42\"");
+            telemetry.addData("Step 7", "Strafe Left 42\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -112,10 +112,10 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         //09. Intake Wheels Stop
         mIntakeWheels.stop();
 
-        //10. Strafe Left 66 + Strafe Offset Inches
-        mMecanumDrivetrain.driveByDistance(66 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        //10. Strafe Right 66 + Strafe Offset Inches
+        mMecanumDrivetrain.driveByDistance(66 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 10", "Strafe Left 66\"");
+            telemetry.addData("Step 10", "Strafe Right 66\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -142,10 +142,10 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         }
         mMecanumDrivetrain.stop();
 
-        //15. Strafe Right 66 + Strafe Offset Inches
-        mMecanumDrivetrain.driveByDistance(66 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        //15. Strafe Left 66 + Strafe Offset Inches
+        mMecanumDrivetrain.driveByDistance(66 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 15", "Strafe Right 66\"");
+            telemetry.addData("Step 15", "Strafe Left 66\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
@@ -156,10 +156,10 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         //17. Intake Wheels Stop
         mIntakeWheels.stop();
 
-        //18. Strafe Left 18 Inches
-        mMecanumDrivetrain.driveByDistance(18, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        //18. Strafe Right 18 Inches
+        mMecanumDrivetrain.driveByDistance(18, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
-            telemetry.addData("Step 18", "Strafe Left 18\"");
+            telemetry.addData("Step 18", "Strafe Right 18\"");
             telemetry.update();
         }
         mMecanumDrivetrain.stop();

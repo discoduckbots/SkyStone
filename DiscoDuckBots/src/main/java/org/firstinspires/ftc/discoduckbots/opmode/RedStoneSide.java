@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.discoduckbots.opmode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="RedStoneSide", group="Linear Opmode")
+@Disabled
 public class RedStoneSide extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;

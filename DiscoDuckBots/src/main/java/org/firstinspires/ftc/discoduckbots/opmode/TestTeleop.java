@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.discoduckbots.hardware.Arm;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TestMecanum OpMode", group="Linear Opmode")
-
+@Disabled
 public class TestTeleop extends LinearOpMode {
 
 
