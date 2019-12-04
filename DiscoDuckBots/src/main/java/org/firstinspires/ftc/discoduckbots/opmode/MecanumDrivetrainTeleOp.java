@@ -65,7 +65,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private MecanumDrivetrain mMecanumDrivetrain = null;
     private IntakeWheels mIntakeWheels = null;
     private MotorBasedDragger mDragger = null;
-//    private Arm mArm = null;
+    private Arm mArm = null;
 
     @Override
     public void runOpMode() {
@@ -82,10 +82,10 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         DcMotor draggerMotor = hardwareMap.get(DcMotor.class, "dragger");
         mDragger = new MotorBasedDragger(draggerMotor);
 
-//        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
-//        Servo wrist = hardwareMap.get(Servo.class, "wrist");
-//        Servo grabber = hardwareMap.get(Servo.class, "grabber");
-//        mArm = new Arm(linearSlide, wrist, grabber);
+        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
+        Servo wrist = hardwareMap.get(Servo.class, "wrist");
+        Servo grabber = hardwareMap.get(Servo.class, "grabber");
+        mArm = new Arm(linearSlide, wrist, grabber);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -106,11 +106,11 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             }
 
 
-            if (gamepad2.x) {
+            if (gamepad1.x) {
                 mDragger.move(0.3);
             }
 
-            else if (gamepad2.y) {
+            else if (gamepad1.y) {
                 mDragger.move(-0.3);
             }
 
@@ -119,24 +119,24 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             }
 
 //
-//            /* Gamepad 2 */
-//            mArm.moveVertical(gamepad2.right_stick_y);
-//
-//            if (gamepad2.x) {
-//                mArm.flip();
-//            }
-//
-//            if (gamepad2.y) {
-//                mArm.flop();
-//            }
-//
-//            if (gamepad2.a) {
-//                mArm.grab();
-//            }
-//
-//            if (gamepad2.b) {
-//                mArm.release();
-//            }
+            /* Gamepad 2 */
+            mArm.moveVertical(gamepad2.left_stick_y);
+
+            if (gamepad2.x) {
+                mArm.flop();
+            }
+
+            if (gamepad2.y) {
+                mArm.flip();
+            }
+
+            if (gamepad2.a) {
+                mArm.grab();
+            }
+
+            if (gamepad2.b) {
+                mArm.release();
+            }
 
         }
 
