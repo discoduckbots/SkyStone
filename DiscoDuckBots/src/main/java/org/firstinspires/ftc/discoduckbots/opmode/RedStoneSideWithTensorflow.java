@@ -193,19 +193,18 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
 
-        if (tfod != null) {
-            tfod.activate();
-        }else {
-            telemetry.addData("TDOD is null", "");
-            telemetry.update();
-        }
-
-
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+
+        if (tfod != null) {
+            tfod.activate();
+        }else {
+            telemetry.addData("TDOD is null", "");
+            telemetry.update();
+        }
     }
 }

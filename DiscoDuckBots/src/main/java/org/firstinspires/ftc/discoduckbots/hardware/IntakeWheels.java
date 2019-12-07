@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class IntakeWheels {
+
+    public static final double INTAKE_THROTTLE = 0.75;
+
     private DcMotor mLeftIntake;
     private DcMotor mRightIntake;
 
@@ -18,8 +21,8 @@ public class IntakeWheels {
     }
 
     public void spinInward(){
-        mLeftIntake.setPower(1);
-        mRightIntake.setPower(1);
+        mLeftIntake.setPower(1 * INTAKE_THROTTLE);
+        mRightIntake.setPower(1 * INTAKE_THROTTLE);
     }
 
     public void spinOutward (){
