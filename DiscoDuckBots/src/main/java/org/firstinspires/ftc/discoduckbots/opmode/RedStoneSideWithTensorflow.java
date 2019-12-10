@@ -75,6 +75,10 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
 
         //02. Strafe Left by Offset Amount
         mMecanumDrivetrain.driveByDistance(strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
+            telemetry.addData("Step 2", "Strafe Left by Offset: " + strafeOffset);
+            telemetry.update();
+        }
 
         //03. Intake Wheels In
         mIntakeWheels.spinInward();
