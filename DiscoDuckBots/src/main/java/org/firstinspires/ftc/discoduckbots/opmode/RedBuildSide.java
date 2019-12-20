@@ -73,7 +73,7 @@ public class RedBuildSide extends LinearOpMode {
         mMecanumDrivetrain.stop();
 
         //2. Drive Reverse 36 Inches
-        mMecanumDrivetrain.driveByDistance(36, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 2", "Drive Reverse 36\"");
             telemetry.update();
@@ -84,7 +84,7 @@ public class RedBuildSide extends LinearOpMode {
         grabFoundation();
 
         //4. Drive Forward 40 Inches
-        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(43, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 4", "Drive Forward 40\"");
             telemetry.update();
@@ -95,7 +95,7 @@ public class RedBuildSide extends LinearOpMode {
         releaseFoundation();
 
         //6. Strafe Right 55 Inches
-        mMecanumDrivetrain.driveByDistance(55, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(53, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 6", "Strafe Right 55\"");
             telemetry.update();

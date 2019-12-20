@@ -2,8 +2,10 @@ package org.firstinspires.ftc.discoduckbots.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.discoduckbots.hardware.Arm;
 import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.discoduckbots.util.TensorFlowSkystoneFinder;
@@ -26,6 +28,7 @@ public class BlueStoneSideWithTensorflow extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mMecanumDrivetrain = null;
     private IntakeWheels mIntakeWheels = null;
+    private Arm mArm = null;
 
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
@@ -43,6 +46,11 @@ public class BlueStoneSideWithTensorflow extends LinearOpMode {
         DcMotor intakeLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
         DcMotor intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         mIntakeWheels = new IntakeWheels(intakeLeft, intakeRight);
+
+        DcMotor linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
+        Servo wrist = hardwareMap.get(Servo.class, "wrist");
+        Servo grabber = hardwareMap.get(Servo.class, "grabber");
+        mArm = new Arm(linearSlide, wrist, grabber);
 
         initTensorflow(telemetry);
 
@@ -84,7 +92,7 @@ public class BlueStoneSideWithTensorflow extends LinearOpMode {
         mIntakeWheels.spinInward();
 
         //04. Drive Forward 50 Inches
-        mMecanumDrivetrain.driveByDistance(50, MecanumDrivetrain.DIRECTION_FORWARD, .2);
+        mMecanumDrivetrain.driveByDistance(60, MecanumDrivetrain.DIRECTION_FORWARD, .1);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 5", "Drive Forward 50\"");
             telemetry.update();
@@ -95,7 +103,7 @@ public class BlueStoneSideWithTensorflow extends LinearOpMode {
         mIntakeWheels.stop();
 
         //06. Drive Reverse 25 Inches
-        mMecanumDrivetrain.driveByDistance(25, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(33, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 6", "Drive Reverse 25\"");
             telemetry.update();
@@ -110,14 +118,18 @@ public class BlueStoneSideWithTensorflow extends LinearOpMode {
         }
         mMecanumDrivetrain.stop();
 
+        mArm.release();
+
         //08. Intake Wheels Out
         mIntakeWheels.spinOutwardByTime(this, 2);
+
+        mArm.grab();
 
         //09. Intake Wheels Stop
         mIntakeWheels.stop();
 
         //10. Strafe Right 66 + Strafe Offset Inches
-        mMecanumDrivetrain.driveByDistance(66 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(69 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 10", "Strafe Right 66\"");
             telemetry.update();
@@ -153,6 +165,8 @@ public class BlueStoneSideWithTensorflow extends LinearOpMode {
             telemetry.update();
         }
         mMecanumDrivetrain.stop();
+
+        mArm.release();
 
         //16. Intake Wheels Out
         mIntakeWheels.spinOutwardByTime(this, 2);

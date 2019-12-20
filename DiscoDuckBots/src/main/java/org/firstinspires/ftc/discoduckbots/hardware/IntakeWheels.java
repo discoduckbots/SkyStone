@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class IntakeWheels {
 
-    public static final double INTAKE_THROTTLE = 0.5;
+    public static final double INTAKE_THROTTLE = 0.45;
 
     private DcMotor mLeftIntake;
     private DcMotor mRightIntake;

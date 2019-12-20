@@ -93,34 +93,36 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             /* Gamepad 1 */
-            mMecanumDrivetrain.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_stick_x, THROTTLE);
+            mMecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, THROTTLE);
 
             if (gamepad1.a) {
                 mIntakeWheels.spinInward();
-            }
-            else if (gamepad1.b) {
+            } else if (gamepad1.b) {
                 mIntakeWheels.spinOutward();
-            }
-            else {
+            } else {
                 mIntakeWheels.stop();
             }
 
 
             if (gamepad1.x) {
                 mDragger.move(0.3);
-            }
-
-            else if (gamepad1.y) {
+            } else if (gamepad1.y) {
                 mDragger.move(-0.3);
-            }
-
-            else {
-                mDragger.stop ();
+            } else {
+                mDragger.stop();
             }
 
 //
             /* Gamepad 2 */
-            mArm.moveVertical(gamepad2.left_stick_y);
+            if (gamepad2.left_stick_y < 0) {
+                mArm.moveVertical(-.05);
+            } else if (gamepad2.left_stick_y > 0) {
+                mArm.moveVertical(.05);
+            } else {
+                mArm.moveVertical(0);
+            }
+            // mArm.moveVertical(gamepad2.left_stick_y*1.5);
+
 
             if (gamepad2.x) {
                 mArm.flop();
@@ -144,4 +146,5 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         telemetry.addData("MecanumDrivetrainTeleOp", "Stopping");
         mMecanumDrivetrain.stop();
     }
+
 }
