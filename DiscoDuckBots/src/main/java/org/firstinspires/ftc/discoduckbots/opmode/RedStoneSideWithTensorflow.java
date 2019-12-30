@@ -115,7 +115,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         telemetry.update();
 
         //06. Drive Reverse 25 Inches
-        mMecanumDrivetrain.driveByDistance(33, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(28, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
           //  telemetry.addData("Step 6", "Drive Reverse 25\"");
           //  telemetry.update();
@@ -152,7 +152,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         mIntakeWheels.spinInward();
 
         //12. Drive Forward 35 Inches
-        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, .15);
+        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_FORWARD, .15);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             //telemetry.addData("Step 12", "Drive Forward 35\"");
             //telemetry.update();
@@ -163,7 +163,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         mIntakeWheels.stop();
 
         //14. Drive Reverse 25 Inches
-        mMecanumDrivetrain.driveByDistance(33, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(28, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             //telemetry.addData("Step 14", "Drive Reverse 25\"");
            // telemetry.update();

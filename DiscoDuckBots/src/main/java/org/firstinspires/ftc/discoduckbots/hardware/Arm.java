@@ -14,6 +14,10 @@ public class Arm {
 
     public Arm (DcMotor linearSlide, Servo wrist, Servo grabber){
         mLinearSlide = linearSlide;
+
+        mLinearSlide.setDirection(DcMotor.Direction.REVERSE);
+        mLinearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         mWrist = wrist;
         mGrabber = grabber;
     }

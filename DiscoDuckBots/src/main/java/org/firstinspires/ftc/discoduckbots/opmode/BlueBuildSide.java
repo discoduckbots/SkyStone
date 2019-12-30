@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.discoduckbots.hardware.DraggerServo;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.discoduckbots.hardware.MotorBasedDragger;
 
@@ -58,7 +57,7 @@ public class BlueBuildSide extends LinearOpMode {
         grabFoundation();
 
         //4. Drive Forward 40 Inches
-        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, 0.5);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 4", "Drive Forward 40\"");
             telemetry.update();
