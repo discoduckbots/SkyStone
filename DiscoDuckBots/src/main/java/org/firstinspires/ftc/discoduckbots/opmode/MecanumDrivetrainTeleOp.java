@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.discoduckbots.hardware.Arm;
+import org.firstinspires.ftc.discoduckbots.hardware.CapstoneServo;
 import org.firstinspires.ftc.discoduckbots.hardware.DraggerServo;
 import org.firstinspires.ftc.discoduckbots.hardware.IntakeWheels;
 import org.firstinspires.ftc.discoduckbots.hardware.MecanumDrivetrain;
@@ -66,6 +67,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private IntakeWheels mIntakeWheels = null;
     private MotorBasedDragger mDragger = null;
     private Arm mArm = null;
+    private CapstoneServo mCapstoneServo = null;
 
     @Override
     public void runOpMode() {
@@ -87,6 +89,10 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         Servo grabber = hardwareMap.get(Servo.class, "grabber");
         mArm = new Arm(linearSlide, wrist, grabber);
 
+        Servo capstoneServo = hardwareMap.get(Servo.class, "capstone");
+        mCapstoneServo = new CapstoneServo(capstoneServo);
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
@@ -103,13 +109,19 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
                 mIntakeWheels.stop();
             }
 
-
             if (gamepad1.x) {
                 mDragger.move(0.3);
             } else if (gamepad1.y) {
                 mDragger.move(-0.3);
             } else {
                 mDragger.stop();
+            }
+
+            if (gamepad1.right_bumper){
+                mCapstoneServo.rotateIntoScoringPosition();
+            }
+            else if (gamepad1.left_bumper){
+                mCapstoneServo.returnToStartPosition();
             }
 
 //
@@ -143,7 +155,6 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             if (gamepad2.b) {
                 mArm.release();
             }
-
         }
 
 
