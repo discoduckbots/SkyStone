@@ -46,7 +46,7 @@ public class BlueBuildSide extends LinearOpMode {
         mMecanumDrivetrain.stop();
 
         //2. Drive Reverse 36 Inches
-        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(36, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 2", "Drive Reverse 36\"");
             telemetry.update();
@@ -57,7 +57,7 @@ public class BlueBuildSide extends LinearOpMode {
         grabFoundation();
 
         //4. Drive Forward 40 Inches
-        mMecanumDrivetrain.driveByDistance(40, MecanumDrivetrain.DIRECTION_FORWARD, 0.5);
+        mMecanumDrivetrain.driveByDistance(43, MecanumDrivetrain.DIRECTION_FORWARD, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 4", "Drive Forward 40\"");
             telemetry.update();

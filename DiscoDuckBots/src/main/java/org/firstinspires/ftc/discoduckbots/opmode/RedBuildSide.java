@@ -73,7 +73,7 @@ public class RedBuildSide extends LinearOpMode {
         mMecanumDrivetrain.stop();
 
         //2. Drive Reverse 36 Inches
-        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(36, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             telemetry.addData("Step 2", "Drive Reverse 36\"");
             telemetry.update();
