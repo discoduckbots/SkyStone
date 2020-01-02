@@ -127,8 +127,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 //
             /* Gamepad 2 */
             if (gamepad2.left_stick_y < 0) {
-                mArm.moveVertical(gamepad2.left_stick_y * .5);
-                telemetry.addData("Slide Power:",gamepad2.left_stick_y * .5);
+                mArm.moveVertical(gamepad2.left_stick_y * .6);
+                telemetry.addData("Slide Power:",gamepad2.left_stick_y * .6);
                 telemetry.update();
             } else if (gamepad2.left_stick_y > 0) {
                 mArm.moveVertical(gamepad2.left_stick_y * .10);

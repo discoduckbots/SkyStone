@@ -23,6 +23,12 @@ public class BlueBuildSide extends LinearOpMode {
         DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
         DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, frontLeft, frontRight, backLeft, backRight);
         DcMotor draggerMotor = hardwareMap.get(DcMotor.class, "dragger");
         mDragger = new MotorBasedDragger(draggerMotor);

@@ -17,8 +17,8 @@ public class CapstoneServo {
 
     public void rotateIntoScoringPosition(){
         ServoRotationCalculatorUtility rotationCalculator = new ServoRotationCalculatorUtility();
-        double position = rotationCalculator.calculatePosition(90, HITEC485HB_SERVO_MAX_TRAVEL);
-
+        double position = rotationCalculator.calculatePosition(85, HITEC485HB_SERVO_MAX_TRAVEL);
+        capstoneRotatorServo.setDirection(Servo.Direction.FORWARD);
         capstoneRotatorServo.setPosition(position);
     }
 
