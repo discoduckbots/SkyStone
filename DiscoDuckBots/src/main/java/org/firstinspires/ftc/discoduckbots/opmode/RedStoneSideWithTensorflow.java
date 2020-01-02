@@ -94,7 +94,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         }
 
         //03. Intake Wheels In
-        mIntakeWheels.spinInward();
+      mIntakeWheels.spinInward();
 
         //04. Drive Forward 50 Inches
         mMecanumDrivetrain.driveByDistance(60, MecanumDrivetrain.DIRECTION_FORWARD, .15);
