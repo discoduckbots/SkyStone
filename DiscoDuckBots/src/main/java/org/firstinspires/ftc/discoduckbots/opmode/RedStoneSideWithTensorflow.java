@@ -69,6 +69,9 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         double autonomousSpeed = .25;
         int strafeOffset = 0;
 
+        mArm.flip();
+        mArm.release();
+
         //01. Get Tensorflow Data to Determine Dice Roll & set Strafe Offset
         List<Recognition> recognitionList = tfod.getRecognitions();
 
@@ -115,7 +118,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         telemetry.update();
 
         //06. Drive Reverse 25 Inches
-        mMecanumDrivetrain.driveByDistance(28, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(30, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
           //  telemetry.addData("Step 6", "Drive Reverse 25\"");
           //  telemetry.update();
@@ -133,7 +136,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         mArm.grab();
 
         //08. Intake Wheels Out
-        mIntakeWheels.spinOutwardByTime(this, 2);
+        mIntakeWheels.spinOutwardByTime(this, 1.5);
 
         mArm.release();
 
@@ -141,7 +144,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         mIntakeWheels.stop();
 
         //10. Strafe Left 66 + Strafe Offset Inches
-        mMecanumDrivetrain.driveByDistance(63 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(62 + strafeOffset, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
            // telemetry.addData("Step 10", "Strafe Left 66\"");
            // telemetry.update();
@@ -152,7 +155,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         mIntakeWheels.spinInward();
 
         //12. Drive Forward 35 Inches
-        mMecanumDrivetrain.driveByDistance(35, MecanumDrivetrain.DIRECTION_FORWARD, .15);
+        mMecanumDrivetrain.driveByDistance(37, MecanumDrivetrain.DIRECTION_FORWARD, .15);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             //telemetry.addData("Step 12", "Drive Forward 35\"");
             //telemetry.update();
@@ -163,7 +166,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         mIntakeWheels.stop();
 
         //14. Drive Reverse 25 Inches
-        mMecanumDrivetrain.driveByDistance(28, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
+        mMecanumDrivetrain.driveByDistance(31, MecanumDrivetrain.DIRECTION_REVERSE, autonomousSpeed);
         while (opModeIsActive() && mMecanumDrivetrain.isMoving()){
             //telemetry.addData("Step 14", "Drive Reverse 25\"");
            // telemetry.update();
@@ -181,7 +184,7 @@ public class RedStoneSideWithTensorflow extends LinearOpMode {
         mArm.grab();
 
         //16. Intake Wheels Out
-        mIntakeWheels.spinOutwardByTime(this, 2);
+        mIntakeWheels.spinOutwardByTime(this, 1.5);
 
         //17. Intake Wheels Stop
         mIntakeWheels.stop();

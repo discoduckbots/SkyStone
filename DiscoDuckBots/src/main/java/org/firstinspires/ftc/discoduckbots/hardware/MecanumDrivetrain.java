@@ -74,6 +74,15 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         }
     }
 
+    public String getEncoderCounts(){
+        String encoderCounts = "FL: " + mFrontLeft.getCurrentPosition() +
+                "\nFR: " + mFrontRight.getCurrentPosition() +
+                "\nBL: " + mBackLeft.getCurrentPosition() +
+                "\nBR: " + mBackRight.getCurrentPosition();
+
+        return encoderCounts;
+    }
+
     /**
      * Overload of drive method that allows for throttling of power
      * @param speedX - the x value of the joystick controlling strafe
